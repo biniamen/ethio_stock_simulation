@@ -1,0 +1,50 @@
+<div class="container">
+    <h1>Registered Users</h1>
+  
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Username Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef> Username </th>
+        <td mat-cell *matCellDef="let user"> {{user.username}} </td>
+      </ng-container>
+  
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+      </ng-container>
+  
+      <!-- Role Column -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef> Role </th>
+        <td mat-cell *matCellDef="let user"> {{user.role}} </td>
+      </ng-container>
+  
+      <!-- KYC Verified Column -->
+      <ng-container matColumnDef="kyc_verified">
+        <th mat-header-cell *matHeaderCellDef> KYC Verified </th>
+        <td mat-cell *matCellDef="let user"> {{user.kyc_verified ? 'Yes' : 'No'}} </td>
+      </ng-container>
+  
+      <!-- KYC Document Column -->
+      <ng-container matColumnDef="kyc_document">
+        <th mat-header-cell *matHeaderCellDef> KYC Document </th>
+        <td mat-cell *matCellDef="let user">
+          <a *ngIf="user.kyc_document" [href]="user.kyc_document" target="_blank">View</a>
+        </td>
+      </ng-container>
+  
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-button color="primary" (click)="approveKyc(user.id)" *ngIf="!user.kyc_verified">Approve</button>
+          <button mat-button color="warn" (click)="rejectKyc(user.id)" *ngIf="!user.kyc_verified">Reject</button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  

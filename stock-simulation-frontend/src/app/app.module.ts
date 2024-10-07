@@ -19,13 +19,16 @@ import { AppComponent } from './app.component';
 import { AuthLoginComponent } from './components/auth-login/auth-login.component';
 import { AuthRegisterComponent } from './components/auth-register/auth-register.component';
 import { HomeComponent } from './components/home/home.component';
+import { UserListComponent } from './components/user-list.component.ts/user-list.component.ts.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLoginComponent,
     AuthRegisterComponent,
-    HomeComponent
+    HomeComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,9 @@ import { HomeComponent } from './components/home/home.component';
     MatCardModule,
     MatSelectModule,
     MatToolbarModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatTableModule,  // Add MatTableModule here
+
   ],
   providers: [],
   bootstrap: [AppComponent]
