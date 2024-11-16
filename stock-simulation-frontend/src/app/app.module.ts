@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Needed for ngModel
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -10,8 +10,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';  // Add this
+
 import { ToastrModule } from 'ngx-toastr';
-// Routing Module
 import { AppRoutingModule } from './app-routing.module';
 
 // Components
@@ -32,13 +34,13 @@ import { MatTableModule } from '@angular/material/table';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,  // Required for toastr animations
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-top-right',  // Top-right notification position
-      timeOut: 3000,  // Time for the toast to disappear
-      closeButton: true,  // Enable close button
-      preventDuplicates: true  // Prevent duplicate toasts
-    }),  // ToastrModule added
+      positionClass: 'toast-top-right',
+      timeOut: 3000,
+      closeButton: true,
+      preventDuplicates: true
+    }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -48,9 +50,10 @@ import { MatTableModule } from '@angular/material/table';
     MatCardModule,
     MatSelectModule,
     MatToolbarModule,
+    MatSidenavModule,
+    MatListModule, // Add this module
     AppRoutingModule,
-    MatTableModule,  // Add MatTableModule here
-
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

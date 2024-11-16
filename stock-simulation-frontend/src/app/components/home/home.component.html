@@ -1,13 +1,24 @@
-<mat-toolbar color="primary">
-    <span>Welcome, {{ username }} | User KYC Status: {{ kycStatus }}</span>
-  
-    <span class="spacer"></span>
-  
-    <button mat-button (click)="onLogout()" color="accent">Logout</button>
-  </mat-toolbar>
-  
-  <div class="home-container">
-    <h1>Home Page</h1>
-    <p>Welcome, you are now logged in.</p>
-  </div>
-  
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" opened>
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Home</a>
+      <a mat-list-item href="#">Profile</a>
+      <a mat-list-item href="#">Settings</a>
+      <a mat-list-item href="#">Logout</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <span>Welcome, {{ username }} | User KYC Status: {{ kycStatus }}</span>
+      <span class="spacer"></span>
+      <button mat-button (click)="onLogout()" color="accent">Logout</button>
+    </mat-toolbar>
+
+    <div class="home-container">
+      <h1>Home Page</h1>
+      <p>Welcome, you are now logged in.</p>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

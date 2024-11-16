@@ -1,0 +1,104 @@
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /admin/stocks/orders/add/ HTTP/1.1" 200 19950
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Order created: Sell Order for GBE
+Starting order matching process.
+Trade executed: Buy Order ID 1, Sell Order ID 2, Quantity: 50
+Order created: Buy Order for GBE
+Starting order matching process.
+Order matching process completed.
+Order created: Sell Order for GBE
+Starting order matching process.
+Order matching process completed.
+Order matching process completed.
+"POST /admin/stocks/orders/add/ HTTP/1.1" 302 0
+"GET /admin/stocks/orders/ HTTP/1.1" 200 17332
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/stocks/trade/ HTTP/1.1" 200 15630
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /admin/stocks/orders/ HTTP/1.1" 200 17208
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/stocks/orders/add/ HTTP/1.1" 200 20030
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/stocks/stocks/ HTTP/1.1" 200 15006
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/stocks/stocks/add/ HTTP/1.1" 200 16416
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/stocks/stocks/add/ HTTP/1.1" 302 0
+"GET /admin/stocks/stocks/ HTTP/1.1" 200 15743
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/stocks/orders/ HTTP/1.1" 200 17208
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/stocks/orders/add/ HTTP/1.1" 200 20082
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Order created: Buy Order for HBR
+Starting order matching process.
+Order matching process completed.
+"POST /admin/stocks/orders/add/ HTTP/1.1" 302 0
+"GET /admin/stocks/orders/ HTTP/1.1" 200 18068
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/stocks/orders/add/ HTTP/1.1" 200 20082
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/stocks/orders/ HTTP/1.1" 200 17859
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/stocks/orders/add/ HTTP/1.1" 200 20082
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Order created: Sell Order for HBR
+Starting order matching process.
+Internal Server Error: /admin/stocks/orders/add/
+Traceback (most recent call last):
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\contrib\admin\options.py", line 718, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\contrib\admin\sites.py", line 241, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\contrib\admin\options.py", line 1961, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\contrib\admin\options.py", line 1820, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\contrib\admin\options.py", line 1871, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\contrib\admin\options.py", line 1294, in save_model
+    obj.save()
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py", line 84, in save
+    Orders.match_and_execute_orders()
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py", line 103, in match_and_execute_orders
+    Orders.update_portfolios_and_balances(buy_order, sell_order, trade_quantity, trade_price)
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py", line 137, in update_portfolios_and_balances
+    buyer_portfolio.total_investment += quantity * price
+TypeError: unsupported operand type(s) for +=: 'float' and 'decimal.Decimal'
+"POST /admin/stocks/orders/add/ HTTP/1.1" 500 145004
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader

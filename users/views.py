@@ -11,53 +11,57 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 User = get_user_model()
 
-# Custom Token View for JWT Authentication
+
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
 
-# User Registration View (Traders, Regulators, and Company Admins)
 class RegisterUser(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = UserSerializer
-    parser_classes = (MultiPartParser, FormParser)  # For handling file uploads
+    parser_classes = (MultiPartParser, FormParser)
 
     def create(self, request, *args, **kwargs):
-        # Use the serializer to validate and create the user
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()  # Save the user data
-        
-        # Generate JWT tokens for the newly registered user
+        user = serializer.save()
+
         refresh = RefreshToken.for_user(user)
 
-        # Customize the response to include tokens and user info
-        response_data = {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-            'username': user.username,
-            'email': user.email,
-            'role': user.role,
-            'kyc_verified': user.kyc_verified,
-        }
+        return Response(
+            {
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'username': user.username,
+                'email': user.email,
+                'role': user.role,
+                'kyc_verified': user.kyc_verified,
+            },
+            status=status.HTTP_201_CREATED
+        )
 
-        # Return the response with tokens and user info
-        return Response(response_data, status=status.HTTP_201_CREATED)
 
-
-# View to List Registered Users (Accessible by Regulators Only)
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def list_users(request):
     if request.user.role != 'regulator':
         return Response({"detail": "Not authorized."}, status=status.HTTP_403_FORBIDDEN)
-    
-    users = User.objects.all().values('id', 'username', 'email', 'role', 'kyc_verified', 'kyc_document')
+
+    users = User.objects.all().values(
+        'id',
+        'username',
+        'email',
+        'role',
+        'kyc_verified',
+        'kyc_document',
+        'account_balance',
+        'profit_balance',
+        'company_id',
+    )
     return Response(users, status=status.HTTP_200_OK)
 
 
-# View to Approve or Reject KYC (Accessible by Regulators Only)
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def update_kyc_status(request, user_id):
@@ -69,7 +73,7 @@ def update_kyc_status(request, user_id):
     except User.DoesNotExist:
         return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
 
-    action = request.data.get('action')  # 'approve' or 'reject'
+    action = request.data.get('action')
     if action == 'approve':
         user.approve_kyc()
     elif action == 'reject':
