@@ -4,7 +4,6 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -69,6 +68,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     def validate(self, attrs):
         data = super().validate(attrs)
+        if not self.user.kyc_verified:
+            raise serializers.ValidationError("KYC not verified. Please wait for approval.")
         data['username'] = self.user.username
         data['email'] = self.user.email
         data['role'] = self.user.role

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UsersPortfolio, ListedCompany, Stocks, Orders, Trade, TransactionLog, Dividend
+from .models import UsersPortfolio, ListedCompany, Stocks, Orders, Trade, Dividend
 
 
 class UsersPortfolioSerializer(serializers.ModelSerializer):
@@ -29,12 +29,6 @@ class OrdersSerializer(serializers.ModelSerializer):
 class TradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trade
-        fields = '__all__'
-
-
-class TransactionLogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TransactionLog
         fields = '__all__'
 
 

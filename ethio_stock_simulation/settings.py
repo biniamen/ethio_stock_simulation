@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'users',
     'stocks',
+    # Third-party apps
+    'debug_toolbar',  # Add this if you are using Django Debug Toolbar
 
 ]
 
@@ -138,6 +140,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+# Add email settings after the general settings
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'michealbiniyam@gmail.com'
+# EMAIL_HOST_PASSWORD = 'Amen@2461'
+# DEFAULT_FROM_EMAIL = 'Your App <michealbiniyam@gmail.com>'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

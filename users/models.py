@@ -11,7 +11,8 @@ class CustomUser(AbstractUser):
         ('company_admin', 'Company Admin'),
     ]
     role = models.CharField(max_length=15, choices=ROLE_CHOICES, default='trader')
-
+    # Add default value for `is_approved`
+    is_approved = models.BooleanField(default=False)
     # KYC verification status for compliance
     kyc_document = models.FileField(upload_to='kyc_documents/', blank=True, null=True)
     kyc_verified = models.BooleanField(default=False)
