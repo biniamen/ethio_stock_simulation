@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.db import models, transaction
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from rest_framework.exceptions import ValidationError
 import logging
 
 # Configure logging
@@ -33,10 +34,17 @@ class Stocks(models.Model):
     total_shares = models.IntegerField()
     current_price = models.DecimalField(max_digits=15, decimal_places=2)
     available_shares = models.IntegerField()
+    max_trader_buy_limit = models.IntegerField(default=1000)  # Maximum shares a trader can buy directly from the company
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"{self.ticker_symbol} ({self.company.company_name})"
+
+    def clean(self):
+        # Ensure max_trader_buy_limit does not exceed available shares
+        if self.max_trader_buy_limit > self.total_shares:
+            raise ValueError("Trader buy limit cannot exceed the total shares of the company.")
+
 
 
 class Orders(models.Model):
@@ -88,8 +96,30 @@ class Orders(models.Model):
         stock = buy_order.stock
         trade_quantity = 0
 
-        # Step 1: Check if company has available shares
+        # Step 1: Check if the company has enough available shares
         if stock.available_shares > 0:
+            # Fetch the total quantity of shares already traded by the user for this stock
+            total_traded_quantity = Trade.objects.filter(user=buy_order.user, stock=stock).aggregate(
+                total_quantity=models.Sum('quantity')
+            )['total_quantity'] or 0  # Default to 0 if no trade history exists
+
+            # Calculate the total shares if this order is executed
+            total_quantity = total_traded_quantity + buy_order.quantity
+
+            # Check if the total shares exceed the limit
+            if total_quantity > stock.max_trader_buy_limit:
+                # Delete the saved order
+                buy_order.delete()
+                raise ValidationError({
+                    "error": "Order exceeds the allowed limit.",
+                    "details": {
+                        "max_limit": stock.max_trader_buy_limit,
+                        "current_traded_quantity": total_traded_quantity,
+                        "requested_quantity": buy_order.quantity,
+                        "total_quantity": total_quantity
+                    }
+                })
+
             trade_quantity = min(buy_order.quantity, stock.available_shares)
             stock.available_shares -= trade_quantity
             stock.save()
@@ -103,7 +133,7 @@ class Orders(models.Model):
                 buy_order.status = 'Partially Completed'
             buy_order.save()
 
-        # Step 2: Match with trader sell orders
+        # Step 2: Match with trader sell orders if stock from the company is insufficient
         if buy_order.quantity > 0:
             sell_orders = cls.objects.filter(
                 stock=stock,
@@ -143,6 +173,11 @@ class Orders(models.Model):
 
     @staticmethod
     def _update_portfolio(order, quantity, price, is_company=False):
+        """
+        Update the user's portfolio based on the order.
+        """
+        from decimal import Decimal
+
         portfolio, _ = UsersPortfolio.objects.get_or_create(user=order.user)
         quantity = Decimal(quantity)  # Ensure quantity is a Decimal
         price = Decimal(price)        # Ensure price is a Decimal
@@ -160,6 +195,7 @@ class Orders(models.Model):
             else:
                 portfolio.average_purchase_price = Decimal('0.00')  # Reset to 0 if no stocks remain
         portfolio.save()
+
 
 
 class Trade(models.Model):

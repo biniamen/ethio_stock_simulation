@@ -13,7 +13,6 @@ from django.core.mail import EmailMessage
 
 User = get_user_model()
 
-
 class RegisterUser(generics.CreateAPIView):
     """
     API endpoint to register a new user.
@@ -25,6 +24,20 @@ class RegisterUser(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
+
+        # Check for uniqueness of username and email
+        if User.objects.filter(username=request.data.get('username')).exists():
+            return Response(
+                {"detail": "Username already exists. Please choose a different username."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        if User.objects.filter(email=request.data.get('email')).exists():
+            return Response(
+                {"detail": "Email already exists. Please use a different email."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         refresh = RefreshToken.for_user(user)
@@ -41,7 +54,6 @@ class RegisterUser(generics.CreateAPIView):
             status=status.HTTP_201_CREATED,
         )
 
-
 class CustomTokenObtainPairView(TokenObtainPairView):
     """
     Custom login endpoint using SimpleJWT.
@@ -53,6 +65,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         serializer = self.get_serializer(data=request.data)
         try:
             serializer.is_valid(raise_exception=True)
+
             # Check if KYC is verified
             if not serializer.user.kyc_verified:
                 return Response(
@@ -60,6 +73,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                     status=status.HTTP_403_FORBIDDEN,
                 )
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
         except Exception as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -29,7 +29,26 @@ class UserSerializer(serializers.ModelSerializer):
             'company_id': {'read_only': True},
         }
 
+    def validate_username(self, value):
+        """
+        Ensure the username is unique.
+        """
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("Username already exists. Please choose a different username.")
+        return value
+
+    def validate_email(self, value):
+        """
+        Ensure the email is unique.
+        """
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Email already exists. Please use a different email.")
+        return value
+
     def create(self, validated_data):
+        """
+        Create a new user instance with hashed password.
+        """
         user = User.objects.create_user(
             username=validated_data['username'],
             password=validated_data['password'],
@@ -40,6 +59,9 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def to_representation(self, instance):
+        """
+        Customize the serialized output.
+        """
         representation = super().to_representation(instance)
         if instance.role != 'trader':
             representation.pop('account_balance', None)
@@ -52,6 +74,9 @@ class UserSerializer(serializers.ModelSerializer):
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
+        """
+        Add additional fields to the token payload.
+        """
         token = super().get_token(user)
 
         token['username'] = user.username
@@ -67,9 +92,16 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
     def validate(self, attrs):
+        """
+        Validate login credentials and block unverified KYC accounts.
+        """
         data = super().validate(attrs)
         if not self.user.kyc_verified:
-            raise serializers.ValidationError("KYC not verified. Please wait for approval.")
+            raise serializers.ValidationError(
+                {"detail": "Your KYC has not been verified. Please wait for approval by a regulator."}
+            )
+        
+        # Include additional user details in the response
         data['username'] = self.user.username
         data['email'] = self.user.email
         data['role'] = self.user.role
