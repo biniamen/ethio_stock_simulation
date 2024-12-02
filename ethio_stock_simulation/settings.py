@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'users',
     'stocks',
+    'regulations',
     # Third-party apps
     'debug_toolbar',  # Add this if you are using Django Debug Toolbar
 

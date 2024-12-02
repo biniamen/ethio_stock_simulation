@@ -1,9 +1,12 @@
 from decimal import Decimal
 from django.db import models, transaction
+from django.utils.timezone import timezone, localtime, localdate
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from rest_framework.exceptions import ValidationError
 import logging
+from regulations.models import StockSuspension
+from regulations.utils import get_regulation_value
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -64,7 +67,7 @@ class Orders(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
-    stock = models.ForeignKey(Stocks, on_delete=models.CASCADE, related_name='orders')
+    stock = models.ForeignKey('stock.Stocks', on_delete=models.CASCADE, related_name='orders')
     stock_symbol = models.CharField(max_length=10)
     order_type = models.CharField(max_length=10, choices=ORDER_TYPE_CHOICES)
     action = models.CharField(max_length=4, choices=ACTION_CHOICES)
@@ -77,12 +80,41 @@ class Orders(models.Model):
         return f"{self.action} Order for {self.stock_symbol}"
 
     def save(self, *args, **kwargs):
-        # Check if this is a new object (avoiding recursion)
+        # Check for specific stock suspension
+        stock_suspension = StockSuspension.objects.filter(
+            trader=self.user, stock=self.stock, is_active=True, suspension_type='Specific Stock'
+        ).exists()
+
+        # Check for global suspension
+        global_suspension = StockSuspension.objects.filter(
+            trader=self.user, is_active=True, suspension_type='All Stocks'
+        ).exists()
+
+        if stock_suspension or global_suspension:
+            raise ValidationError("Trading for this user is suspended.")
+
+        # Check working hours
+        working_hours = get_regulation_value("Working Hours")
+        if working_hours:
+            start, end = map(int, working_hours.split('-'))
+            current_hour = localtime().hour
+            if not (start <= current_hour < end):
+                raise ValidationError("Orders cannot be created outside working hours.")
+
+        # Check daily trade limit
+        daily_trade_limit = get_regulation_value("Daily Trade Limit")
+        if daily_trade_limit:
+            user_trades_today = Orders.objects.filter(
+                user=self.user, created_at__date=localdate()
+            ).count()
+            if user_trades_today >= int(daily_trade_limit):
+                raise ValidationError("Daily trade limit reached.")
+
+        # Save the order and execute logic
         is_new = self._state.adding
-        super().save(*args, **kwargs)  # Save the object first
+        super().save(*args, **kwargs)
 
         if is_new:
-            # Only execute matching logic for new orders
             Orders.match_and_execute_orders(self)
 
     @classmethod

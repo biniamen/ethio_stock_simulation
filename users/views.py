@@ -1,3 +1,4 @@
+from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -10,6 +11,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .serializers import UserSerializer, CustomTokenObtainPairSerializer
 from django.core.mail import EmailMessage
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
@@ -140,3 +143,22 @@ def update_kyc_status(request, user_id):
         {"message": f"KYC status updated to {user.kyc_verified} for user {user.username}."},
         status=status.HTTP_200_OK,
     )
+class ChangePasswordView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        old_password = request.data.get("old_password")
+        new_password = request.data.get("new_password")
+
+        if not user.check_password(old_password):
+            return Response({"detail": "Old password is incorrect."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            validate_password(new_password, user=user)
+        except ValidationError as e:
+            return Response({"detail": e.messages}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.set_password(new_password)
+        user.save()
+        return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)
