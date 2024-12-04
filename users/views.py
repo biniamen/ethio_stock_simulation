@@ -118,6 +118,7 @@ def update_kyc_status(request, user_id):
     action = request.data.get('action')
     if action == 'approve':
         user.approve_kyc()
+        
         # Simulated email for KYC approval
         email_subject = "KYC Approved"
         email_message = f"""

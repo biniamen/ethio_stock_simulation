@@ -38,7 +38,7 @@ class StockSuspension(models.Model):
 
     trader = models.ForeignKey(User, on_delete=models.CASCADE, related_name='suspended_traders')
     stock = models.ForeignKey(
-        'stock.Stocks',  # Correctly reference the `Stocks` model
+        'stocks.Stocks',  # Correctly reference the `Stocks` model
         on_delete=models.CASCADE,
         related_name='suspensions',
         null=True,
@@ -55,3 +55,20 @@ class StockSuspension(models.Model):
         if self.suspension_type == 'Specific Stock':
             return f"Suspension of {self.trader.username} for stock {self.stock.ticker_symbol}"
         return f"Suspension of all stocks owned by {self.trader.username}"
+
+
+class WorkingHours(models.Model):
+    day_of_week = models.CharField(max_length=10, choices=[
+        ('Monday', 'Monday'),
+        ('Tuesday', 'Tuesday'),
+        ('Wednesday', 'Wednesday'),
+        ('Thursday', 'Thursday'),
+        ('Friday', 'Friday'),
+        ('Saturday', 'Saturday'),
+        ('Sunday', 'Sunday'),
+    ])
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    def __str__(self):
+        return f"{self.day_of_week}: {self.start_time} - {self.end_time}"

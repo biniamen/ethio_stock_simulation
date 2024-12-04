@@ -1,8 +1,8 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import Regulation, AuditLog, StockSuspension
-from .serializers import RegulationSerializer, AuditLogSerializer, StockSuspensionSerializer
+from .models import Regulation, AuditLog, StockSuspension,WorkingHours
+from .serializers import RegulationSerializer, AuditLogSerializer, StockSuspensionSerializer,WorkingHoursSerializer
 from django.utils.timezone import now
 
 class RegulationViewSet(viewsets.ModelViewSet):
@@ -25,6 +25,9 @@ class AuditLogViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = AuditLog.objects.all()
     serializer_class = AuditLogSerializer
 
+class WorkingHoursViewSet(viewsets.ModelViewSet):
+    queryset = WorkingHours.objects.all()
+    serializer_class = WorkingHoursSerializer
 
 class StockSuspensionViewSet(viewsets.ModelViewSet):
     queryset = StockSuspension.objects.all()

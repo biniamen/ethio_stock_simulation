@@ -7,6 +7,8 @@ from rest_framework.exceptions import ValidationError
 import logging
 from regulations.models import StockSuspension
 from regulations.utils import get_regulation_value
+from regulations.models import StockSuspension, WorkingHours
+
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -67,7 +69,7 @@ class Orders(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
-    stock = models.ForeignKey('stock.Stocks', on_delete=models.CASCADE, related_name='orders')
+    stock = models.ForeignKey('stocks.Stocks', on_delete=models.CASCADE, related_name='orders')
     stock_symbol = models.CharField(max_length=10)
     order_type = models.CharField(max_length=10, choices=ORDER_TYPE_CHOICES)
     action = models.CharField(max_length=4, choices=ACTION_CHOICES)
@@ -80,12 +82,11 @@ class Orders(models.Model):
         return f"{self.action} Order for {self.stock_symbol}"
 
     def save(self, *args, **kwargs):
-        # Check for specific stock suspension
+        # Check for active stock suspensions
         stock_suspension = StockSuspension.objects.filter(
             trader=self.user, stock=self.stock, is_active=True, suspension_type='Specific Stock'
         ).exists()
 
-        # Check for global suspension
         global_suspension = StockSuspension.objects.filter(
             trader=self.user, is_active=True, suspension_type='All Stocks'
         ).exists()
@@ -93,15 +94,21 @@ class Orders(models.Model):
         if stock_suspension or global_suspension:
             raise ValidationError("Trading for this user is suspended.")
 
-        # Check working hours
-        working_hours = get_regulation_value("Working Hours")
-        if working_hours:
-            start, end = map(int, working_hours.split('-'))
-            current_hour = localtime().hour
-            if not (start <= current_hour < end):
-                raise ValidationError("Orders cannot be created outside working hours.")
+        # Check working hours using WorkingHours table
+        current_time = localtime()
+        current_day = current_time.strftime('%A')
+        current_hour = current_time.time()
 
-        # Check daily trade limit
+        try:
+            working_hours = WorkingHours.objects.get(day_of_week=current_day)
+            if not (working_hours.start_time <= current_hour <= working_hours.end_time):
+                self.status = 'Cancelled'
+                raise ValidationError("Orders cannot be created outside working hours.")
+        except WorkingHours.DoesNotExist:
+            raise ValidationError("Working hours are not configured for this day.")
+
+        # Check daily trade limit (if applicable)
+        from regulations.utils import get_regulation_value
         daily_trade_limit = get_regulation_value("Daily Trade Limit")
         if daily_trade_limit:
             user_trades_today = Orders.objects.filter(
@@ -109,6 +116,16 @@ class Orders(models.Model):
             ).count()
             if user_trades_today >= int(daily_trade_limit):
                 raise ValidationError("Daily trade limit reached.")
+
+        # Ensure the user has a portfolio
+        portfolio, created = UsersPortfolio.objects.get_or_create(
+            user=self.user,
+            defaults={
+                'quantity': 0,
+                'average_purchase_price': Decimal('0.00'),
+                'total_investment': Decimal('0.00'),
+            }
+        )
 
         # Save the order and execute logic
         is_new = self._state.adding

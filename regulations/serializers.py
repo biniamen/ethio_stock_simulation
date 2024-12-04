@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Regulation, AuditLog, StockSuspension
+from .models import Regulation, AuditLog, StockSuspension, WorkingHours
 
 class RegulationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,4 +16,9 @@ class AuditLogSerializer(serializers.ModelSerializer):
 class StockSuspensionSerializer(serializers.ModelSerializer):
     class Meta:
         model = StockSuspension
+        fields = '__all__'
+
+class WorkingHoursSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkingHours
         fields = '__all__'

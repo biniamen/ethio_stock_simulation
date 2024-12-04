@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Regulation, AuditLog, StockSuspension
+from .models import Regulation, AuditLog, StockSuspension, WorkingHours
 
 @admin.register(Regulation)
 class RegulationAdmin(admin.ModelAdmin):
@@ -18,3 +18,7 @@ class StockSuspensionAdmin(admin.ModelAdmin):
         'is_active', 'created_at', 'released_at'
     )
     list_filter = ('suspension_type', 'initiator', 'is_active')
+    
+@admin.register(WorkingHours)
+class WorkingHoursAdmin(admin.ModelAdmin):
+    list_display = ('day_of_week', 'start_time', 'end_time')

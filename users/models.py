@@ -55,6 +55,7 @@ class CustomUser(AbstractUser):
         if self.kyc_document:
             self.kyc_verified = True
             self.save()
+            
 
     def reject_kyc(self):
         self.kyc_verified = False
