@@ -2709,3 +2709,6 @@ Watching for file changes with StatReloader
 D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+"POST /api/stocks/orders/ HTTP/1.1" 201 252
+"GET /api/stocks/companies/ HTTP/1.1" 200 4644
+"GET /api/stocks/companies/ HTTP/1.1" 200 4644
