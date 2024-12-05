@@ -2712,3 +2712,91 @@ Watching for file changes with StatReloader
 "POST /api/stocks/orders/ HTTP/1.1" 201 252
 "GET /api/stocks/companies/ HTTP/1.1" 200 4644
 "GET /api/stocks/companies/ HTTP/1.1" 200 4644
+"GET /api/stocks/portfolios/ HTTP/1.1" 200 6530
+"GET /api/stocks/companies/ HTTP/1.1" 200 4644
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+"GET /api/regulationsworking-hours/ HTTP/1.1" 200 162
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 50
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 16697
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 14163
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/regulations/workinghours/add/ HTTP/1.1" 200 15016
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/regulations/workinghours/add/ HTTP/1.1" 302 0
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 14802
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+"GET /admin/regulations/workinghours/3/change/ HTTP/1.1" 200 15333
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/regulations/workinghours/3/change/ HTTP/1.1" 302 0
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 14805
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+"GET /admin/regulations/workinghours/1/change/ HTTP/1.1" 200 15336
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/regulations/workinghours/1/change/ HTTP/1.1" 302 0
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 14806
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/regulations/workinghours/3/change/ HTTP/1.1" 200 15333
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/regulations/workinghours/3/change/ HTTP/1.1" 302 0
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 14805
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 39
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 39
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 39
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 55
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 39
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 39
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\ethio_stock_simulation\__init__.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 20683
+"GET /admin/django_celery_beat/periodictask/ HTTP/1.1" 200 18661
+"GET /static/admin/img/search.svg HTTP/1.1" 200 458
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 17382
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/django_celery_beat/periodictask/ HTTP/1.1" 200 18661
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/django_celery_beat/periodictask/ HTTP/1.1" 200 18661
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 17382
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/django_celery_beat/periodictask/ HTTP/1.1" 200 18661
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/django_celery_beat/periodictask/add/ HTTP/1.1" 200 40154
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342

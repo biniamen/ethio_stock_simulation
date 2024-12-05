@@ -3,6 +3,7 @@ import numpy as np
 import psycopg2
 from faker import Faker
 from datetime import datetime, timedelta
+from decimal import Decimal
 import hashlib
 
 faker = Faker()
@@ -192,39 +193,90 @@ def generate_and_insert_orders_and_trades(conn, num_orders_per_user=5):
 
 
 # Generate and insert orders and trades
+
 def generate_and_insert_orders_and_trades(conn, num_orders_per_user=5):
     cursor = conn.cursor()
 
-    # Get traders and stocks
-    cursor.execute("SELECT id FROM users_customuser WHERE role = 'trader';")
-    trader_ids = [row[0] for row in cursor.fetchall()]
+    # Fetch traders and stocks
+    cursor.execute("SELECT id FROM users_customuser WHERE role = 'trader' AND kyc_verified = TRUE AND is_approved = TRUE;")
+    traders = [row[0] for row in cursor.fetchall()]
 
-    cursor.execute("SELECT id, ticker_symbol, current_price FROM stocks_stocks;")
+    cursor.execute("SELECT id, current_price, ticker_symbol, available_shares, max_trader_buy_limit FROM stocks_stocks;")
     stocks = cursor.fetchall()
 
-    for trader_id in trader_ids:
+    for trader_id in traders:
         for _ in range(num_orders_per_user):
-            stock_id, ticker_symbol, current_price = random.choice(stocks)
+            stock = random.choice(stocks)
+            stock_id = stock[0]
+            current_price = Decimal(stock[1])  # Ensure current_price is Decimal
+            ticker_symbol = stock[2]
+            available_shares = stock[3]
+            max_trader_buy_limit = stock[4]
+
+            # Randomly choose between Buy or Sell
             action = random.choice(["Buy", "Sell"])
+
             quantity = random.randint(1, 50)
-            price = round(current_price * (1 + np.random.uniform(-0.05, 0.05)), 2)
-            status = random.choice(["Fully Completed", "Partially Completed", "Cancelled", "Pending"])
-            order_date = (datetime.now() - timedelta(days=random.randint(1, 365))).strftime("%Y-%m-%d")
 
-            # Insert into Orders table
-            cursor.execute("""
-                INSERT INTO stocks_orders (user_id, stock_id, stock_symbol, order_type, action, price, quantity, 
-                                           status, created_at)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
-            """, (trader_id, stock_id, ticker_symbol, "Market", action, price, quantity, status, order_date))
+            # Ensure price calculations use Decimal
+            random_factor = Decimal(str(np.random.uniform(-0.05, 0.05)))  # Convert float to Decimal
+            price = round(current_price * (1 + random_factor), 2)
 
-            # Insert trades only for completed or partially completed orders
-            if status in ["Fully Completed", "Partially Completed"]:
-                trade_quantity = quantity if status == "Fully Completed" else random.randint(1, quantity)
+            # Ensure rules are followed
+            if action == "Buy":
+                # Skip if quantity exceeds max_trader_buy_limit or available shares
                 cursor.execute("""
-                    INSERT INTO stocks_trade (user_id, stock_id, quantity, price, trade_time)
-                    VALUES (%s, %s, %s, %s, %s);
-                """, (trader_id, stock_id, trade_quantity, price, order_date))
+                    SELECT COALESCE(SUM(quantity), 0) FROM stocks_trade
+                    WHERE user_id = %s AND stock_id = %s;
+                """, (trader_id, stock_id))
+                total_bought = cursor.fetchone()[0]
+
+                if total_bought + quantity > max_trader_buy_limit or available_shares < quantity:
+                    continue
+
+                # Update available shares
+                new_available_shares = available_shares - quantity
+                cursor.execute("UPDATE stocks_stocks SET available_shares = %s WHERE id = %s;", (new_available_shares, stock_id))
+
+                # Update portfolio
+                cursor.execute("""
+                    INSERT INTO stocks_usersportfolio (user_id, quantity, average_purchase_price, total_investment)
+                    VALUES (%s, %s, %s, %s)
+                    ON CONFLICT (user_id) DO UPDATE
+                    SET quantity = stocks_usersportfolio.quantity + %s,
+                        total_investment = stocks_usersportfolio.total_investment + %s,
+                        average_purchase_price = (stocks_usersportfolio.total_investment + %s) / (stocks_usersportfolio.quantity + %s);
+                """, (trader_id, quantity, price * quantity, price * quantity, quantity, price * quantity, price * quantity, quantity))
+
+            elif action == "Sell":
+                # Skip if user doesn't have enough shares
+                cursor.execute("""
+                    SELECT quantity FROM stocks_usersportfolio WHERE user_id = %s;
+                """, (trader_id,))
+                portfolio_quantity = cursor.fetchone()[0] or 0
+
+                if portfolio_quantity < quantity:
+                    continue
+
+                # Update portfolio
+                cursor.execute("""
+                    UPDATE stocks_usersportfolio
+                    SET quantity = quantity - %s,
+                        total_investment = total_investment - (average_purchase_price * %s)
+                    WHERE user_id = %s;
+                """, (quantity, quantity, trader_id))
+
+            # Insert order
+            cursor.execute("""
+                INSERT INTO stocks_orders (user_id, stock_id, stock_symbol, order_type, action, price, quantity, status, created_at)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, NOW());
+            """, (trader_id, stock_id, ticker_symbol, "Market", action, price, quantity, "Fully Completed"))
+
+            # Insert trade
+            cursor.execute("""
+                INSERT INTO stocks_trade (user_id, stock_id, quantity, price, trade_time)
+                VALUES (%s, %s, %s, %s, NOW());
+            """, (trader_id, stock_id, quantity, price))
 
     conn.commit()
     print("Orders and Trades inserted successfully.")
@@ -236,7 +288,6 @@ def generate_and_insert_data():
 
     try:
         generate_and_insert_companies_and_stocks(conn)
-        generate_and_insert_users(conn)
         generate_and_insert_orders_and_trades(conn)
     finally:
         conn.close()

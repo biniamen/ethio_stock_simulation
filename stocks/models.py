@@ -139,6 +139,8 @@ class Orders(models.Model):
         with transaction.atomic():
             if new_order.action == 'Buy':
                 cls._handle_buy_order(new_order)
+            elif new_order.action == 'Sell':
+                cls._handle_sell_order(new_order)
 
     @classmethod
     def _handle_buy_order(cls, buy_order):
@@ -220,16 +222,55 @@ class Orders(models.Model):
                     buy_order.save()
                     sell_order.save()
 
+    @classmethod
+    def _handle_sell_order(cls, sell_order):
+        stock = sell_order.stock
+        trade_quantity = 0
+
+        # Match sell order with pending buy orders
+        buy_orders = cls.objects.filter(
+            stock=stock,
+            action='Buy',
+            status='Pending',
+            price__gte=sell_order.price
+        ).order_by('-price', 'created_at')  # Highest price buyers first
+
+        for buy_order in buy_orders:
+            if sell_order.quantity == 0:
+                break
+
+            trade_quantity = min(sell_order.quantity, buy_order.quantity)
+            trade_price = buy_order.price
+
+            Trade.execute_trade(buy_order, sell_order, trade_quantity, trade_price)
+
+            cls._update_portfolio(buy_order, trade_quantity, trade_price)
+            cls._update_portfolio(sell_order, trade_quantity, trade_price)
+
+            sell_order.quantity -= trade_quantity
+            buy_order.quantity -= trade_quantity
+
+            if sell_order.quantity == 0:
+                sell_order.status = 'Fully Completed'
+            else:
+                sell_order.status = 'Partially Completed'
+
+            if buy_order.quantity == 0:
+                buy_order.status = 'Fully Completed'
+            else:
+                buy_order.status = 'Partially Completed'
+
+            sell_order.save()
+            buy_order.save()
+
     @staticmethod
     def _update_portfolio(order, quantity, price, is_company=False):
         """
         Update the user's portfolio based on the order.
         """
-        from decimal import Decimal
-
         portfolio, _ = UsersPortfolio.objects.get_or_create(user=order.user)
-        quantity = Decimal(quantity)  # Ensure quantity is a Decimal
-        price = Decimal(price)        # Ensure price is a Decimal
+        quantity = Decimal(quantity)
+        price = Decimal(price)
 
         if order.action == 'Buy':
             portfolio.quantity += quantity
@@ -242,9 +283,8 @@ class Orders(models.Model):
             if portfolio.quantity > 0:
                 portfolio.average_purchase_price = portfolio.total_investment / portfolio.quantity
             else:
-                portfolio.average_purchase_price = Decimal('0.00')  # Reset to 0 if no stocks remain
+                portfolio.average_purchase_price = Decimal('0.00')
         portfolio.save()
-
 
 
 class Trade(models.Model):

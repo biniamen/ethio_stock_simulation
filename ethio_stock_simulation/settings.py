@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'regulations',
     # Third-party apps
     'debug_toolbar',  # Add this if you are using Django Debug Toolbar
+    'django_celery_beat',
 
 ]
 
