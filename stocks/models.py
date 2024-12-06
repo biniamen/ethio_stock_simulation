@@ -451,6 +451,10 @@ class Orders(models.Model):
     
     @staticmethod
     def _update_portfolio(user, stock, quantity, price, is_buy):
+        """
+        Updates the user's portfolio based on the trade. 
+        This method is invoked after trade execution.
+        """
         portfolio, _ = UsersPortfolio.objects.get_or_create(user=user)
         quantity = Decimal(quantity)
         price = Decimal(price)
@@ -460,13 +464,13 @@ class Orders(models.Model):
             portfolio.total_investment += quantity * price
             if portfolio.quantity > 0:
                 portfolio.average_purchase_price = portfolio.total_investment / portfolio.quantity
-        else:
+        else:  # Sell
             portfolio.quantity -= quantity
             portfolio.total_investment -= quantity * price
             if portfolio.quantity > 0:
                 portfolio.average_purchase_price = portfolio.total_investment / portfolio.quantity
             else:
-                portfolio.average_purchase_price = Decimal('0.00')
+                portfolio.average_purchase_price = Decimal('0.00')  # Reset if no stocks remain
 
         portfolio.save()
 
