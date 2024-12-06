@@ -82,7 +82,7 @@ class Orders(models.Model):
         return f"{self.action} Order for {self.stock_symbol}"
 
     def save(self, *args, **kwargs):
-        # Check for active stock suspensions
+    # Check for active stock suspensions
         stock_suspension = StockSuspension.objects.filter(
             trader=self.user, stock=self.stock, is_active=True, suspension_type='Specific Stock'
         ).exists()
@@ -127,6 +127,22 @@ class Orders(models.Model):
             }
         )
 
+        # Validate Buy Order: Ensure sufficient account balance
+        if self.action == 'Buy':
+            total_cost = Decimal(self.price) * Decimal(self.quantity)
+            if self.user.account_balance < total_cost:
+                raise ValidationError("Insufficient account balance to place a buy order.")
+
+        # Validate Sell Order: Ensure sufficient stock ownership
+        if self.action == 'Sell':
+            owned_quantity = Trade.objects.filter(
+                user=self.user,
+                stock=self.stock,
+            ).aggregate(total_quantity=models.Sum('quantity'))['total_quantity'] or 0
+
+            if owned_quantity < self.quantity:
+                raise ValidationError("You do not own enough stock to place this sell order.")
+
         # Save the order and execute logic
         is_new = self._state.adding
         super().save(*args, **kwargs)
@@ -144,68 +160,75 @@ class Orders(models.Model):
 
     @classmethod
     def _handle_buy_order(cls, buy_order):
+        """
+        Handles the execution of Buy orders based on order type and price-time priority.
+        """
         stock = buy_order.stock
-        trade_quantity = 0
 
-        # Step 1: Check if the company has enough available shares
-        if stock.available_shares > 0:
-            # Fetch the total quantity of shares already traded by the user for this stock
-            total_traded_quantity = Trade.objects.filter(user=buy_order.user, stock=stock).aggregate(
-                total_quantity=models.Sum('quantity')
-            )['total_quantity'] or 0  # Default to 0 if no trade history exists
+        # Step 1: Handle Market Orders
+        if buy_order.order_type == 'Market':
+            # Check if the company has available stock
+            if stock.available_shares > 0:
+                trade_quantity = min(buy_order.quantity, stock.available_shares)
+                trade_price = stock.current_price  # Market orders take the company's current price
 
-            # Calculate the total shares if this order is executed
-            total_quantity = total_traded_quantity + buy_order.quantity
+                # Execute the trade with the company
+                Trade.objects.create(
+                    user=buy_order.user,
+                    stock=stock,
+                    quantity=trade_quantity,
+                    price=trade_price,
+                )
 
-            # Check if the total shares exceed the limit
-            if total_quantity > stock.max_trader_buy_limit:
-                # Delete the saved order
-                buy_order.delete()
-                raise ValidationError({
-                    "error": "Order exceeds the allowed limit.",
-                    "details": {
-                        "max_limit": stock.max_trader_buy_limit,
-                        "current_traded_quantity": total_traded_quantity,
-                        "requested_quantity": buy_order.quantity,
-                        "total_quantity": total_quantity
-                    }
-                })
+                # Deduct the cost from the user's account balance
+                total_cost = trade_quantity * trade_price
+                buy_order.user.update_account_balance(-total_cost)
 
-            trade_quantity = min(buy_order.quantity, stock.available_shares)
-            stock.available_shares -= trade_quantity
-            stock.save()
+                # Update the user's portfolio
+                cls._update_portfolio(buy_order.user, stock, trade_quantity, trade_price, is_buy=True)
 
-            cls._update_portfolio(buy_order, trade_quantity, stock.current_price, is_company=True)
+                # Update the company's available stock
+                stock.available_shares -= trade_quantity
+                stock.save()
 
-            buy_order.quantity -= trade_quantity
-            if buy_order.quantity == 0:
-                buy_order.status = 'Fully Completed'
-            else:
-                buy_order.status = 'Partially Completed'
-            buy_order.save()
-
-        # Step 2: Match with trader sell orders if stock from the company is insufficient
-        if buy_order.quantity > 0:
-            sell_orders = cls.objects.filter(
-                stock=stock,
-                action='Sell',
-                status='Pending',
-                price__lte=buy_order.price,
-            ).order_by('price', 'created_at')
-
-            for sell_order in sell_orders:
+                # Adjust the order quantity
+                buy_order.quantity -= trade_quantity
                 if buy_order.quantity == 0:
-                    break
+                    buy_order.status = 'Fully Completed'
+                else:
+                    buy_order.status = 'Partially Completed'
 
-                if sell_order.stock == stock:
+                buy_order.save()
+
+            # If the order is not fully fulfilled, check other traders' sell orders
+            if buy_order.quantity > 0:
+                sell_orders = cls.objects.filter(
+                    stock=stock,
+                    action='Sell',
+                    status='Pending'
+                ).order_by('price', 'created_at')  # Lowest price first, earliest order next
+
+                for sell_order in sell_orders:
+                    if buy_order.quantity == 0:
+                        break
+
                     trade_quantity = min(buy_order.quantity, sell_order.quantity)
                     trade_price = sell_order.price
 
+                    # Execute the trade
                     Trade.execute_trade(buy_order, sell_order, trade_quantity, trade_price)
 
-                    cls._update_portfolio(buy_order, trade_quantity, trade_price)
-                    cls._update_portfolio(sell_order, trade_quantity, trade_price)
+                    # Deduct the cost from the buyer's account balance
+                    total_cost = trade_quantity * trade_price
+                    buy_order.user.update_account_balance(-total_cost)
 
+                    # Update the buyer's portfolio
+                    cls._update_portfolio(buy_order.user, stock, trade_quantity, trade_price, is_buy=True)
+
+                    # Update the seller's portfolio
+                    cls._update_portfolio(sell_order.user, stock, trade_quantity, trade_price, is_buy=False)
+
+                    # Adjust quantities and statuses
                     buy_order.quantity -= trade_quantity
                     sell_order.quantity -= trade_quantity
 
@@ -222,69 +245,231 @@ class Orders(models.Model):
                     buy_order.save()
                     sell_order.save()
 
+        # Step 2: Handle Limit Orders
+        elif buy_order.order_type == 'Limit':
+            # Step 2.1: Check company stock price and availability
+            if stock.available_shares > 0 and stock.current_price <= buy_order.price:
+                trade_quantity = min(buy_order.quantity, stock.available_shares)
+                trade_price = stock.current_price  # Use the company's price for the trade
+
+                # Execute the trade with the company
+                Trade.objects.create(
+                    user=buy_order.user,
+                    stock=stock,
+                    quantity=trade_quantity,
+                    price=trade_price,
+                )
+
+                # Deduct the cost from the user's account balance
+                total_cost = trade_quantity * trade_price
+                buy_order.user.update_account_balance(-total_cost)
+
+                # Update the user's portfolio
+                cls._update_portfolio(buy_order.user, stock, trade_quantity, trade_price, is_buy=True)
+
+                # Update the company's available stock
+                stock.available_shares -= trade_quantity
+                stock.save()
+
+                # Adjust the order quantity
+                buy_order.quantity -= trade_quantity
+                if buy_order.quantity == 0:
+                    buy_order.status = 'Fully Completed'
+                else:
+                    buy_order.status = 'Partially Completed'
+
+                buy_order.save()
+
+            # Step 2.2: Check other traders' sell orders
+            if buy_order.quantity > 0:
+                sell_orders = cls.objects.filter(
+                    stock=stock,
+                    action='Sell',
+                    status='Pending',
+                    price__lte=buy_order.price
+                ).order_by('price', 'created_at')  # Lowest price first, earliest order next
+
+                for sell_order in sell_orders:
+                    if buy_order.quantity == 0:
+                        break
+
+                    trade_quantity = min(buy_order.quantity, sell_order.quantity)
+                    trade_price = sell_order.price
+
+                    # Execute the trade
+                    Trade.execute_trade(buy_order, sell_order, trade_quantity, trade_price)
+
+                    # Deduct the cost from the buyer's account balance
+                    total_cost = trade_quantity * trade_price
+                    buy_order.user.update_account_balance(-total_cost)
+
+                    # Update the buyer's portfolio
+                    cls._update_portfolio(buy_order.user, stock, trade_quantity, trade_price, is_buy=True)
+
+                    # Update the seller's portfolio
+                    cls._update_portfolio(sell_order.user, stock, trade_quantity, trade_price, is_buy=False)
+
+                    # Adjust quantities and statuses
+                    buy_order.quantity -= trade_quantity
+                    sell_order.quantity -= trade_quantity
+
+                    if buy_order.quantity == 0:
+                        buy_order.status = 'Fully Completed'
+                    else:
+                        buy_order.status = 'Partially Completed'
+
+                    if sell_order.quantity == 0:
+                        sell_order.status = 'Fully Completed'
+                    else:
+                        sell_order.status = 'Partially Completed'
+
+                    buy_order.save()
+                    sell_order.save()
+
+            # Step 2.3: Cancel unfulfilled Limit Orders at the end of the day
+            if buy_order.quantity > 0:
+                current_time = localtime()
+                end_of_day = current_time.replace(hour=23, minute=59, second=59)
+
+                if current_time >= end_of_day:
+                    buy_order.status = 'Cancelled'
+                    buy_order.save()
+
     @classmethod
     def _handle_sell_order(cls, sell_order):
+        """
+        Handles the execution of Sell orders based on order type and price-time priority.
+        """
         stock = sell_order.stock
-        trade_quantity = 0
 
-        # Match sell order with pending buy orders
-        buy_orders = cls.objects.filter(
-            stock=stock,
-            action='Buy',
-            status='Pending',
-            price__gte=sell_order.price
-        ).order_by('-price', 'created_at')  # Highest price buyers first
+        # Step 1: Check if the user owns enough stock in the Trade table
+        total_owned_quantity = Trade.objects.filter(
+            user=sell_order.user,
+            stock=stock
+        ).aggregate(total_quantity=models.Sum('quantity'))['total_quantity'] or 0
 
-        for buy_order in buy_orders:
-            if sell_order.quantity == 0:
-                break
-
-            trade_quantity = min(sell_order.quantity, buy_order.quantity)
-            trade_price = buy_order.price
-
-            Trade.execute_trade(buy_order, sell_order, trade_quantity, trade_price)
-
-            cls._update_portfolio(buy_order, trade_quantity, trade_price)
-            cls._update_portfolio(sell_order, trade_quantity, trade_price)
-
-            sell_order.quantity -= trade_quantity
-            buy_order.quantity -= trade_quantity
-
-            if sell_order.quantity == 0:
-                sell_order.status = 'Fully Completed'
-            else:
-                sell_order.status = 'Partially Completed'
-
-            if buy_order.quantity == 0:
-                buy_order.status = 'Fully Completed'
-            else:
-                buy_order.status = 'Partially Completed'
-
+        if total_owned_quantity < sell_order.quantity:
+            sell_order.status = 'Cancelled'
             sell_order.save()
-            buy_order.save()
+            raise ValidationError("Insufficient stock to sell.")
 
+        # Step 2: Handle Market Orders
+        if sell_order.order_type == 'Market':
+            # Match with all buy orders (highest price first, then earliest time)
+            buy_orders = cls.objects.filter(
+                stock=stock,
+                action='Buy',
+                status='Pending'
+            ).order_by('-price', 'created_at')  # Highest price first, earliest order next
+
+            for buy_order in buy_orders:
+                if sell_order.quantity == 0:
+                    break
+
+                # Calculate trade quantity and price
+                trade_quantity = min(sell_order.quantity, buy_order.quantity)
+                trade_price = buy_order.price  # Market orders take the price from the matched buy order
+
+                # Execute the trade
+                Trade.execute_trade(buy_order, sell_order, trade_quantity, trade_price)
+
+                # Credit total proceeds to seller's account balance
+                total_proceeds = trade_quantity * trade_price
+                sell_order.user.update_account_balance(total_proceeds)
+
+                # Update seller's portfolio
+                cls._update_portfolio(sell_order.user, stock, trade_quantity, trade_price, is_buy=False)
+
+                # Adjust quantities and statuses
+                sell_order.quantity -= trade_quantity
+                buy_order.quantity -= trade_quantity
+
+                if sell_order.quantity == 0:
+                    sell_order.status = 'Fully Completed'
+                else:
+                    sell_order.status = 'Partially Completed'
+
+                if buy_order.quantity == 0:
+                    buy_order.status = 'Fully Completed'
+                else:
+                    buy_order.status = 'Partially Completed'
+
+                sell_order.save()
+                buy_order.save()
+
+        # Step 3: Handle Limit Orders
+        elif sell_order.order_type == 'Limit':
+            # Match only with buy orders priced at or above the limit price
+            buy_orders = cls.objects.filter(
+                stock=stock,
+                action='Buy',
+                status='Pending',
+                price__gte=sell_order.price
+            ).order_by('-price', 'created_at')  # Highest price first, earliest order next
+
+            for buy_order in buy_orders:
+                if sell_order.quantity == 0:
+                    break
+
+                # Calculate trade quantity and price
+                trade_quantity = min(sell_order.quantity, buy_order.quantity)
+                trade_price = buy_order.price
+
+                # Execute the trade
+                Trade.execute_trade(buy_order, sell_order, trade_quantity, trade_price)
+
+                # Credit total proceeds to seller's account balance
+                total_proceeds = trade_quantity * trade_price
+                sell_order.user.update_account_balance(total_proceeds)
+
+                # Update seller's portfolio
+                cls._update_portfolio(sell_order.user, stock, trade_quantity, trade_price, is_buy=False)
+
+                # Adjust quantities and statuses
+                sell_order.quantity -= trade_quantity
+                buy_order.quantity -= trade_quantity
+
+                if sell_order.quantity == 0:
+                    sell_order.status = 'Fully Completed'
+                else:
+                    sell_order.status = 'Partially Completed'
+
+                if buy_order.quantity == 0:
+                    buy_order.status = 'Fully Completed'
+                else:
+                    buy_order.status = 'Partially Completed'
+
+                sell_order.save()
+                buy_order.save()
+
+            # If no matching orders are found, cancel the Limit order at the end of the day
+            if sell_order.quantity > 0:
+                # Assuming we have a scheduled job to check orders at the end of the day
+                sell_order.status = 'Cancelled'
+                sell_order.save()
+
+    
     @staticmethod
-    def _update_portfolio(order, quantity, price, is_company=False):
-        """
-        Update the user's portfolio based on the order.
-        """
-        portfolio, _ = UsersPortfolio.objects.get_or_create(user=order.user)
+    def _update_portfolio(user, stock, quantity, price, is_buy):
+        portfolio, _ = UsersPortfolio.objects.get_or_create(user=user)
         quantity = Decimal(quantity)
         price = Decimal(price)
 
-        if order.action == 'Buy':
+        if is_buy:
             portfolio.quantity += quantity
             portfolio.total_investment += quantity * price
             if portfolio.quantity > 0:
                 portfolio.average_purchase_price = portfolio.total_investment / portfolio.quantity
-        elif order.action == 'Sell' and not is_company:
+        else:
             portfolio.quantity -= quantity
             portfolio.total_investment -= quantity * price
             if portfolio.quantity > 0:
                 portfolio.average_purchase_price = portfolio.total_investment / portfolio.quantity
             else:
                 portfolio.average_purchase_price = Decimal('0.00')
+
         portfolio.save()
+
 
 
 class Trade(models.Model):

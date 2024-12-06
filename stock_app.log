@@ -2800,3 +2800,239 @@ Watching for file changes with StatReloader
 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
 "GET /admin/django_celery_beat/periodictask/add/ HTTP/1.1" 200 40154
 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/django_celery_beat/crontabschedule/add/?_to_field=id&_popup=1 HTTP/1.1" 200 47527
+"GET /static/admin/js/inlines.js HTTP/1.1" 200 15526
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /static/admin/img/icon-unknown.svg HTTP/1.1" 200 655
+"POST /admin/django_celery_beat/crontabschedule/add/?_to_field=id&_popup=1 HTTP/1.1" 200 348
+"GET /static/admin/js/popup_response.js HTTP/1.1" 200 532
+"GET /admin/django_celery_beat/periodictask/ HTTP/1.1" 200 18661
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/django_celery_beat/periodictask/add/ HTTP/1.1" 200 40311
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/django_celery_beat/crontabschedule/ HTTP/1.1" 200 16870
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/django_celery_beat/periodictask/ HTTP/1.1" 200 18661
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/django_celery_beat/periodictask/add/ HTTP/1.1" 200 40311
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /static/admin/img/calendar-icons.svg HTTP/1.1" 200 2455
+"POST /admin/django_celery_beat/periodictask/add/ HTTP/1.1" 200 40618
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/django_celery_beat/periodictask/add/ HTTP/1.1" 302 0
+"GET /admin/django_celery_beat/periodictask/ HTTP/1.1" 200 22080
+"GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/django_celery_beat/periodictask/ HTTP/1.1" 200 21813
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 20742
+"GET /static/admin/css/base.css HTTP/1.1" 304 0
+"GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+"GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+"GET /static/admin/js/theme.js HTTP/1.1" 304 0
+"GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+"GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 17382
+"GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+"GET /static/admin/js/core.js HTTP/1.1" 304 0
+"GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+"GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+"GET /static/admin/js/actions.js HTTP/1.1" 304 0
+"GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+"GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+"GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+"GET /static/admin/js/filters.js HTTP/1.1" 304 0
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+"GET /admin/regulations/workinghours/add/ HTTP/1.1" 200 17834
+"GET /static/admin/css/forms.css HTTP/1.1" 304 0
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+"GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+"GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+"GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+"GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+"POST /admin/regulations/workinghours/add/ HTTP/1.1" 302 0
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 18014
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Not Found: /api/stocks/portfolios/11/
+"GET //api/stocks/portfolios/11/ HTTP/1.1" 404 55
+Not Found: /api/stocks/portfolios/111/
+"GET //api/stocks/portfolios/111/ HTTP/1.1" 404 55
+Not Found: /api/stocks/portfolios/111/
+"GET //api/stocks/portfolios/111/ HTTP/1.1" 404 55
+Not Found: /api/stocks/portfolios/112/
+"GET //api/stocks/portfolios/112/ HTTP/1.1" 404 55
+Not Found: /api/stocks/portfolios/112/
+"GET //api/stocks/portfolios/112/ HTTP/1.1" 404 55
+"GET //api/stocks/portfolios/245/ HTTP/1.1" 200 100
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 73
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 73
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 64
+"POST /api/users/register/ HTTP/1.1" 201 582
+Unauthorized: /api/users/113/kyc/
+"POST /api/users/113/kyc/ HTTP/1.1" 401 107
+"POST /api/users/login/ HTTP/1.1" 200 742
+Unauthorized: /api/users/113/kyc/
+"POST /api/users/113/kyc/ HTTP/1.1" 401 107
+Unauthorized: /api/users/113/kyc/
+"POST /api/users/113/kyc/ HTTP/1.1" 401 107
+Unauthorized: /api/users/113/kyc/
+"POST /api/users/113/kyc/ HTTP/1.1" 401 107
+Unauthorized: /api/users/113/kyc/
+"POST /api/users/113/kyc/ HTTP/1.1" 401 176
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 39
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 57
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 54
+"POST /api/stocks/orders/ HTTP/1.1" 201 253
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /api/stocks/orders/ HTTP/1.1" 200 183
+Internal Server Error: /api/stocks/orders/
+Traceback (most recent call last):
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py", line 48, in create
+    order = serializer.save()  # Automatically triggers matching logic
+            ^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 208, in save
+    self.instance = self.create(validated_data)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 989, in create
+    instance = ModelClass._default_manager.create(**validated_data)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\db\models\query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py", line 151, in save
+    Orders.match_and_execute_orders(self)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Orders' has no attribute 'match_and_execute_orders'
+"POST /api/stocks/orders/ HTTP/1.1" 500 129664
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"POST /api/stocks/orders/ HTTP/1.1" 201 260
+Not Found: /api/stocks/portfolios/1/
+"GET //api/stocks/portfolios/1/ HTTP/1.1" 404 55
+Not Found: /api/stocks/portfolios/2/
+"GET //api/stocks/portfolios/2/ HTTP/1.1" 404 55
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 54
+"POST /api/stocks/orders/ HTTP/1.1" 201 264
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 54
+"POST /api/stocks/orders/ HTTP/1.1" 201 252
+"POST /api/stocks/orders/ HTTP/1.1" 201 251
+"POST /api/stocks/orders/ HTTP/1.1" 201 259
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
