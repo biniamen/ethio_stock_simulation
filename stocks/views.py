@@ -1,3 +1,5 @@
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from .models import UsersPortfolio, ListedCompany, Stocks, Orders, Trade, Dividend
@@ -54,6 +56,18 @@ class OrdersViewSet(viewsets.ModelViewSet):
             status=status.HTTP_201_CREATED
         )
 
+class TraderOrdersView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Ensure the user is a trader
+        if request.user.role != 'trader':
+            return Response({"detail": "Only traders can view this resource."}, status=403)
+        
+        # Fetch orders belonging to the logged-in trader
+        orders = Orders.objects.filter(trader=request.user)
+        serializer = OrdersSerializer(orders, many=True)
+        return Response(serializer.data)
 
 class TradeViewSet(viewsets.ModelViewSet):
     queryset = Trade.objects.all()

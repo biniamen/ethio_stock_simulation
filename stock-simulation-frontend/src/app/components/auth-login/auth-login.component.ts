@@ -16,23 +16,37 @@ export class AuthLoginComponent {
   onLogin() {
     this.authService.login(this.loginUser).subscribe(
       response => {
-        console.log('User logged in successfully', response);
         localStorage.setItem('access_token', response.access);
         localStorage.setItem('refresh_token', response.refresh);
-
-        // Assuming response contains username and kyc_status
         localStorage.setItem('username', response.username);
         localStorage.setItem('kyc_status', response.kyc_status);
-
+  
         this.toastr.success('Login successful!', 'Success');
-
-        // Redirect to the home page after successful login
         this.router.navigate(['/home']);
       },
       error => {
-        console.error('Error logging in', error);
-        this.toastr.error('Login failed. Please check your credentials.', 'Error');
+        console.error('Login error:', error);
+  
+        // Handle specific KYC verification error
+        if (error.error && error.error.detail) {
+          try {
+            // Extract the error message manually
+            const regex = /ErrorDetail\(string='(.*?)'/; // Regex to capture the error message
+            const match = error.error.detail.match(regex);
+  
+            if (match && match[1]) {
+              this.toastr.error(match[1], 'KYC Error'); // Display the extracted error message
+            } else {
+              this.toastr.error('An unknown error occurred during login.', 'Error');
+            }
+          } catch (e) {
+            this.toastr.error('An unknown error occurred during login.', 'Error');
+          }
+        } else {
+          this.toastr.error('Login failed. Check your credentials.', 'Error');
+        }
       }
     );
   }
+  
 }

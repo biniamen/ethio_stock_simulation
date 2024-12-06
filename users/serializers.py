@@ -105,11 +105,14 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         Validate login credentials and block unverified KYC accounts.
         """
         data = super().validate(attrs)
+
+        # Check for KYC verification status
         if not self.user.kyc_verified:
+            # Return a clean error response
             raise serializers.ValidationError(
-                {"detail": "Your KYC has not been verified. Please wait for approval by a regulator."}
+                "Your KYC has not been verified. Please wait for approval by a regulator."
             )
-        
+
         # Include additional user details in the response
         data['username'] = self.user.username
         data['email'] = self.user.email

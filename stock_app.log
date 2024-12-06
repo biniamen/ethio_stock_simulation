@@ -3044,3 +3044,199 @@ Watching for file changes with StatReloader
 D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 55
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 57
+"POST /api/stocks/orders/ HTTP/1.1" 201 265
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 137
+"GET /admin/ HTTP/1.1" 200 20740
+"GET /api/stocks/ HTTP/1.1" 200 6087
+"GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+"GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+"GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+"GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+"GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+"GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 304 0
+"GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+"GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+"GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+"GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 304 0
+"GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+"GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+"GET /api/stocks/ HTTP/1.1" 200 6087
+Not Found: /api/users/
+"GET /api/users/ HTTP/1.1" 404 4454
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\users\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\users\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/users/list HTTP/1.1" 301 0
+Unauthorized: /api/users/list/
+"GET /api/users/list/ HTTP/1.1" 401 58
+"POST /api/users/login/ HTTP/1.1" 200 742
+"GET /api/users/list HTTP/1.1" 301 0
+Unauthorized: /api/users/list/
+"GET /api/users/list/ HTTP/1.1" 401 176
+"GET /api/users/list HTTP/1.1" 301 0
+Unauthorized: /api/users/list/
+"GET /api/users/list/ HTTP/1.1" 401 107
+"GET /api/users/list HTTP/1.1" 301 0
+Unauthorized: /api/users/list/
+"GET /api/users/list/ HTTP/1.1" 401 107
+"GET /api/users/list HTTP/1.1" 301 0
+Unauthorized: /api/users/list/
+"GET /api/users/list/ HTTP/1.1" 401 107
+Not Found: /api/users/
+"GET /api/users/ HTTP/1.1" 404 4721
+"GET /api/users/list HTTP/1.1" 301 0
+Unauthorized: /api/users/list/
+"GET /api/users/list/ HTTP/1.1" 401 5076
+Unauthorized: /api/users/list/
+"GET /api/users/list/?format=api HTTP/1.1" 401 5109
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 63
+"POST /api/users/register/ HTTP/1.1" 201 577
+"POST /api/users/login/ HTTP/1.1" 200 742
+"POST /api/users/113/kyc/ HTTP/1.1" 200 62
+"POST /api/users/114/kyc/ HTTP/1.1" 200 56
+"POST /api/users/login/ HTTP/1.1" 200 902
+"POST /api/users/login/ HTTP/1.1" 200 902
+"POST /api/users/login/ HTTP/1.1" 200 902
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\ethio_stock_simulation\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\ethio_stock_simulation\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\ethio_stock_simulation\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"GET /admin/ HTTP/1.1" 200 20740
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 137
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 137
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 137
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 137
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\users\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\users\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 39
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 39
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\users\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 137
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\users\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\users\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 147
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 147
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 147
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 147
+"POST /api/users/8/kyc/ HTTP/1.1" 200 56
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 910
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 173
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+Watching for file changes with StatReloader
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 28191
+"GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+"GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3426
+"GET /static/rest_framework/css/default.css HTTP/1.1" 200 1152
+"GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+"GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1793
+"GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+"GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3796
+"GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 200 59
+"GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+"GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+"GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+"GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 200 87533
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2689
+"GET /api/stocks/orders/ HTTP/1.1" 200 28191
+"GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+"GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+"GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3426
+"GET /static/rest_framework/css/default.css HTTP/1.1" 200 1152
+"GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3796
+"GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+"GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1793
+"GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 200 87533
+"GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+"GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 200 59
+"GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+"GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2689
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2689
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader

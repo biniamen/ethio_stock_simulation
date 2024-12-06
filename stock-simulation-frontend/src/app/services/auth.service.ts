@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -28,5 +28,10 @@ export class AuthService {
   // Approve or reject KYC status (Regulator only)
   updateKycStatus(userId: number, action: string): Observable<any> {
     return this.http.post(`${this.apiUrl}${userId}/kyc/`, { action });
+  }
+  getTraderOrders(): Observable<any> {
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}trader/orders/`, { headers });
   }
 }

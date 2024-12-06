@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
-from .views import RegisterUser, CustomTokenObtainPairView, list_users, update_kyc_status
+from .views import ListUsersView, RegisterUser, CustomTokenObtainPairView, list_users, update_kyc_status
 from django.urls import path, include
 from .views import ChangePasswordView
 
@@ -14,4 +14,6 @@ urlpatterns = [
     #path('users/<int:user_id>/kyc/', update_kyc_status, name='update_kyc_status'),  # Endpoint to approve/reject KYC
     path('<int:user_id>/kyc/', update_kyc_status, name='update_kyc_status'),  # Endpoint to approve/reject KYC
     path('api/stocks/', include('stocks.urls')),
+    path('list/', ListUsersView.as_view(), name='list-users'),
+
 ]

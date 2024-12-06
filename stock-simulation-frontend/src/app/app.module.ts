@@ -12,7 +12,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';  // Add this
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // Add this
+import { MatPaginatorModule } from '@angular/material/paginator'; // For pagination
+import { MatSortModule } from '@angular/material/sort'; // For sorting
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -23,6 +25,7 @@ import { AuthRegisterComponent } from './components/auth-register/auth-register.
 import { HomeComponent } from './components/home/home.component';
 import { UserListComponent } from './components/user-list.component.ts/user-list.component.ts.component';
 import { MatTableModule } from '@angular/material/table';
+import { OrdersComponent } from './components/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { MatTableModule } from '@angular/material/table';
     AuthLoginComponent,
     AuthRegisterComponent,
     HomeComponent,
-    UserListComponent
+    UserListComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +52,9 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule,
     MatSelectModule,
     MatToolbarModule,
     MatSidenavModule,

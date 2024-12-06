@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware', 
@@ -68,7 +69,7 @@ REST_FRAMEWORK = {
 }
 
 from datetime import timedelta
-CORS_ALLOW_ALL_ORIGINS = False  # Ensure you limit which origins can access your API
+CORS_ALLOW_ALL_ORIGINS = True  # Ensure you limit which origins can access your API
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',
     # Add any other allowed origins here

@@ -9,6 +9,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.core.mail import send_mail
 from django.conf import settings
+
+from users.models import CustomUser
 from .serializers import UserSerializer, CustomTokenObtainPairSerializer
 from django.core.mail import EmailMessage
 from django.contrib.auth.password_validation import validate_password
@@ -163,3 +165,11 @@ class ChangePasswordView(APIView):
         user.set_password(new_password)
         user.save()
         return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)
+    
+class ListUsersView(APIView):
+    permission_classes = [IsAuthenticated]  # Optional: Ensure only authenticated users can access this
+
+    def get(self, request):
+        users = CustomUser.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
