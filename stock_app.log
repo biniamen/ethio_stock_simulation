@@ -3240,3 +3240,75 @@ Watching for file changes with StatReloader
 "GET /api/stocks/orders/ HTTP/1.1" 200 1513
 D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
 Watching for file changes with StatReloader
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+"GET /api/stocks/orders/ HTTP/1.1" 200 1513
+Unauthorized: /api/users/list/
+"GET /api/users/list/?format=api HTTP/1.1" 401 5109
+Watching for file changes with StatReloader
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+"POST /api/users/register/ HTTP/1.1" 201 582
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 147
+"POST /api/users/login/ HTTP/1.1" 200 742
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 147
+"POST /api/users/login/ HTTP/1.1" 200 902
+"POST /api/users/login/ HTTP/1.1" 200 742
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 902
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /api/stocks/ HTTP/1.1" 200 6087
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2689
+"GET /api/stocks/ HTTP/1.1" 200 6087
+"GET /api/stocks/orders/ HTTP/1.1" 200 99850
+"GET /api/stocks/orders/ HTTP/1.1" 200 31231
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader

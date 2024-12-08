@@ -74,6 +74,24 @@ class TradeViewSet(viewsets.ModelViewSet):
     serializer_class = TradeSerializer
 
 
+class UserOrdersView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Fetch orders belonging to the logged-in user
+        orders = Orders.objects.filter(user=request.user)
+        serializer = OrdersSerializer(orders, many=True)
+        return Response(serializer.data)
+
+class UserTradesView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Fetch trades belonging to the logged-in user
+        trades = Trade.objects.filter(user=request.user)
+        serializer = TradeSerializer(trades, many=True)
+        return Response(serializer.data)
+
 class DividendViewSet(viewsets.ModelViewSet):
     queryset = Dividend.objects.all()
     serializer_class = DividendSerializer

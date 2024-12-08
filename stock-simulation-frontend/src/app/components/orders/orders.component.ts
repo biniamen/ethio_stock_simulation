@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -33,7 +33,11 @@ export class OrdersComponent implements OnInit {
   }
 
   fetchOrders(): void {
-    this.http.get<any[]>('http://127.0.0.1:8000/api/stocks/orders/').subscribe(
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+    });
+  
+    this.http.get<any[]>('http://127.0.0.1:8000/api/stocks/user/orders/', { headers: headers }).subscribe(
       (data) => {
         this.dataSource.data = data;
         this.dataSource.paginator = this.paginator;

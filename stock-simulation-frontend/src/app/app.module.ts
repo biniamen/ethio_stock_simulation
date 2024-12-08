@@ -26,6 +26,8 @@ import { HomeComponent } from './components/home/home.component';
 import { UserListComponent } from './components/user-list.component.ts/user-list.component.ts.component';
 import { MatTableModule } from '@angular/material/table';
 import { OrdersComponent } from './components/orders/orders.component';
+import { LayoutComponent } from './layout/layout.component';
+import { UserTradedComponent } from './user-traded/user-traded.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { OrdersComponent } from './components/orders/orders.component';
     AuthRegisterComponent,
     HomeComponent,
     UserListComponent,
-    OrdersComponent
+    OrdersComponent,
+    LayoutComponent,
+    UserTradedComponent
   ],
   imports: [
     BrowserModule,

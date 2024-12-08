@@ -1,0 +1,15 @@
+/* Example styling for the layout */
+.example-container {
+    height: 100vh;
+  }
+  
+  .sidenav {
+    width: 200px;
+  }
+  
+  .main-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  

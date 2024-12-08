@@ -19,8 +19,8 @@ export class AuthLoginComponent {
         localStorage.setItem('access_token', response.access);
         localStorage.setItem('refresh_token', response.refresh);
         localStorage.setItem('username', response.username);
-        localStorage.setItem('kyc_status', response.kyc_status);
-  
+        localStorage.setItem('kyc_status', response.kyc_verified);
+        localStorage.setItem('role', response.role);
         this.toastr.success('Login successful!', 'Success');
         this.router.navigate(['/home']);
       },
