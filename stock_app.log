@@ -3312,3 +3312,54 @@ D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\eth
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+"GET /api/stocks HTTP/1.1" 301 0
+"GET /api/stocks/ HTTP/1.1" 200 6087
+Unauthorized: /api/users/list/
+"GET /api/users/list/ HTTP/1.1" 401 5076
+Not Found: /api/user/orders/
+"GET /api/user/orders/ HTTP/1.1" 404 2704
+Not Found: /user/orders/
+"GET /user/orders/ HTTP/1.1" 404 2692
+Not Found: /api/stocks/users/orders/
+"GET /api/stocks/users/orders/ HTTP/1.1" 404 11200
+Not Found: /api/user/orders/
+"GET /api/user/orders/ HTTP/1.1" 404 2704
+Unauthorized: /api/stocks/user/orders/
+"GET /api/stocks/user/orders/ HTTP/1.1" 401 5226
+Unauthorized: /api/stocks/user/orders/
+"GET /api/stocks/user/orders/ HTTP/1.1" 401 58
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 147
+"POST /api/users/login/ HTTP/1.1" 200 742
+Not Found: /api/users//kyc/
+"POST /api/users//kyc/ HTTP/1.1" 404 4737
+"POST /api/users/9/kyc/ HTTP/1.1" 200 60
+"POST /api/users/login/ HTTP/1.1" 200 915
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"GET /api/stocks/user/trades/ HTTP/1.1" 200 209
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 2
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 915
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 378
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader

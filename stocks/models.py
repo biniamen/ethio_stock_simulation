@@ -8,7 +8,8 @@ import logging
 from regulations.models import StockSuspension
 from regulations.utils import get_regulation_value
 from regulations.models import StockSuspension, WorkingHours
-
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -32,7 +33,21 @@ class ListedCompany(models.Model):
     def __str__(self):
         return self.company_name
 
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    order = models.ForeignKey('Orders', on_delete=models.CASCADE, related_name='notifications', null=True, blank=True)
+    trade = models.ForeignKey('Trade', on_delete=models.CASCADE, related_name='notifications', null=True, blank=True)
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        if self.order:
+            return f"Notification for Order {self.order.id}: {self.message[:50]}"
+        elif self.trade:
+            return f"Notification for Trade {self.trade.id}: {self.message[:50]}"
+        return f"Notification for {self.user.username}: {self.message[:50]}"
+    
 class Stocks(models.Model):
     company = models.ForeignKey(ListedCompany, on_delete=models.CASCADE, related_name='stocks')
     ticker_symbol = models.CharField(max_length=10, unique=True)
@@ -475,7 +490,18 @@ class Orders(models.Model):
         portfolio.save()
 
 
-
+def notify_user_real_time(user, message):
+    """
+    Sends a real-time notification to the user using Django Channels.
+    """
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        f"user_{user.id}",
+        {
+            "type": "send_notification",
+            "message": {"content": message},
+        }
+    )
 class Trade(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trades')
     stock = models.ForeignKey(Stocks, on_delete=models.CASCADE, related_name='trades')
@@ -486,13 +512,48 @@ class Trade(models.Model):
     def __str__(self):
         return f"Trade by {self.user.username}"
 
+    # @classmethod
+    # def execute_trade(cls, buy_order, sell_order, quantity, price=None):
+    #     if price is None:
+    #         price = sell_order.stock.current_price
+    #     cls.objects.create(user=buy_order.user, stock=buy_order.stock, quantity=quantity, price=price)
+    #     cls.objects.create(user=sell_order.user, stock=sell_order.stock, quantity=quantity, price=price)
     @classmethod
     def execute_trade(cls, buy_order, sell_order, quantity, price=None):
+        """
+        Executes a trade between a buy and sell order.
+        """
         if price is None:
             price = sell_order.stock.current_price
-        cls.objects.create(user=buy_order.user, stock=buy_order.stock, quantity=quantity, price=price)
-        cls.objects.create(user=sell_order.user, stock=sell_order.stock, quantity=quantity, price=price)
 
+        # Create trade entries for buyer and seller
+        trade_buyer = cls.objects.create(user=buy_order.user, stock=buy_order.stock, quantity=quantity, price=price)
+        trade_seller = cls.objects.create(user=sell_order.user, stock=sell_order.stock, quantity=quantity, price=price)
+
+        # Log and Notify the buyer
+        buyer_message = (
+            f"Trade executed: You bought {quantity} shares of {buy_order.stock.ticker_symbol} "
+            f"at {price} successfully."
+        )
+        logger.info(f"Notification for Buyer {buy_order.user.username}: {buyer_message}")
+        Notification.objects.create(
+            user=buy_order.user,
+            trade=trade_buyer,
+            message=buyer_message
+        )
+
+        # Log and Notify the seller
+        seller_message = (
+            f"Trade executed: You sold {quantity} shares of {sell_order.stock.ticker_symbol} "
+            f"at {price} successfully."
+        )
+        logger.info(f"Notification for Seller {sell_order.user.username}: {seller_message}")
+        Notification.objects.create(
+            user=sell_order.user,
+            trade=trade_seller,
+            message=seller_message
+        )
+        
 
 class Dividend(models.Model):
     company = models.ForeignKey(ListedCompany, on_delete=models.CASCADE, related_name='dividends')

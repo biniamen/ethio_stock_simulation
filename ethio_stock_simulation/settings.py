@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # Third-party apps
     'debug_toolbar',  # Add this if you are using Django Debug Toolbar
     'django_celery_beat',
+     'channels',
 
 ]
 
@@ -101,9 +102,18 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'ethio_stock_simulation.asgi.application'
+
 WSGI_APPLICATION = 'ethio_stock_simulation.wsgi.application'
 
-
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
