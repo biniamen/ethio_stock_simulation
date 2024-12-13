@@ -1,26 +1,8 @@
-<mat-sidenav-container class="example-container">
-  <mat-sidenav mode="side" opened class="sidenav">
-    <mat-toolbar color="primary" class="sidenav-toolbar">Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item href="#" class="menu-item">Home</a>
-      <a mat-list-item href="#" class="menu-item">Profile</a>
-      <a mat-list-item href="#" class="menu-item">Settings</a>
-      <a mat-list-item routerLink="/orders" class="menu-item">Orders</a> <!-- Link to Orders page -->
-      <a mat-list-item href="#" class="menu-item logout">Logout</a>
-    </mat-nav-list>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <mat-toolbar color="primary" class="main-toolbar">
-      <span class="welcome-text">Welcome, {{ username }} | User KYC Status: <span *ngIf="kycStatus; else notVerified">Verified</span><ng-template #notVerified>Not Verified</ng-template></span>
-      <span class="spacer"></span>
-      <button mat-raised-button color="accent" (click)="onLogout()">Logout</button>
-    </mat-toolbar>
-
-    <div class="home-container">
-      <div class="home-content">
-        <h1>Welcome to the Ethiopian Stock Market Simulation Platform</h1>
-      </div>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div class="home-container">
+  <div class="content-wrapper">
+    <h1>Welcome to the Ethiopian Stock Market Simulation Platform</h1>
+    <p class="description">
+      Explore market trends, manage your portfolio, and trade stocks in a simulated environment.
+    </p>
+  </div>
+</div>

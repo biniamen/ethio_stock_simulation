@@ -28,6 +28,7 @@ import { MatTableModule } from '@angular/material/table';
 import { OrdersComponent } from './components/orders/orders.component';
 import { LayoutComponent } from './layout/layout.component';
 import { UserTradedComponent } from './user-traded/user-traded.component';
+import { PublishStockComponent } from './components/publish-stock/publish-stock.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UserTradedComponent } from './user-traded/user-traded.component';
     UserListComponent,
     OrdersComponent,
     LayoutComponent,
-    UserTradedComponent
+    UserTradedComponent,
+    PublishStockComponent
   ],
   imports: [
     BrowserModule,
