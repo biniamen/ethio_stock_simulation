@@ -31,6 +31,17 @@
           </mat-select>
         </mat-form-field>
 
+        <div *ngIf="user.role === 'company_admin'">
+          <mat-form-field appearance="outline">
+            <mat-label>Select Company</mat-label>
+            <mat-select [(ngModel)]="user.company_id" name="company_id" required>
+              <mat-option *ngFor="let company of companies" [value]="company.id">
+                {{ company.company_name +" || "+ company.sector }} 
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
         <!-- File input (no mat-form-field around this) -->
         <label for="kycFile">KYC Document:</label>
         <input id="kycFile" type="file" (change)="onFileSelected($event)" />

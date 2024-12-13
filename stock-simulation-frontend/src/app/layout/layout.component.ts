@@ -1,34 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css'],
+  styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
-  username: string | null = '';
-  kycStatus: string | null = '';
-  role: string | null = '';
-  isLoggedIn: boolean = false;
-
-  constructor(private router: Router) {}
+  isLoggedIn = false;
+  userRole: string | null = null;
+  username: string | null = null;
+  kycStatus: boolean = false;
+  companyName: string | null = null;
+  companySector: string | null = null;
 
   ngOnInit(): void {
-    const token = localStorage.getItem('access_token');
-    this.isLoggedIn = !!token;
-
+    // Check if the user is logged in
+    this.isLoggedIn = !!localStorage.getItem('access_token');
     if (this.isLoggedIn) {
+      // Fetch user details from local storage
+      this.userRole = localStorage.getItem('role');
       this.username = localStorage.getItem('username');
-      this.kycStatus = localStorage.getItem('kyc_status');
-      this.role = localStorage.getItem('role');
-    } else {
-      this.router.navigate(['/login']);
+      this.kycStatus = localStorage.getItem('kyc_status') === 'true';
+
+      // Fetch company details if the user is a company_admin
+      if (this.userRole === 'company_admin') {
+        this.companyName = localStorage.getItem('company_name');
+        this.companySector = localStorage.getItem('company_sector');
+      }
     }
   }
 
+  // Handle logout
   onLogout(): void {
-    localStorage.clear();
-    this.router.navigate(['/login']);
+    localStorage.clear(); // Clear all stored data
+    this.isLoggedIn = false; // Update logged-in status
+    window.location.href = '/login'; // Redirect to login page
   }
 }

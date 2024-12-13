@@ -55,6 +55,7 @@ class UserSerializer(serializers.ModelSerializer):
             password=validated_data['password'],
             email=validated_data['email'],
             role=validated_data['role'],
+            company_id=validated_data.get('company_id', None),  # Save company ID
             kyc_document=validated_data.get('kyc_document', None),
         )
         return user

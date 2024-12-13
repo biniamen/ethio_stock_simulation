@@ -2,15 +2,22 @@
   <mat-sidenav mode="side" opened class="sidenav">
     <mat-toolbar color="primary" class="sidenav-toolbar">Menu</mat-toolbar>
     <mat-nav-list>
-      <a *ngIf="role === 'company_admin'" mat-list-item routerLink="/publish-stock">Company Stock</a>
-      <a *ngIf="role === 'trader'" mat-list-item routerLink="/orders">Trader Orders</a>
-      <a *ngIf="role === 'trader'" mat-list-item routerLink="/listed-stocks">Listed Stocks</a>
+      <!-- <button mat-button [routerLink]="['/publish-stock']">Company Stock</button> -->
+
+      <a *ngIf="userRole === 'company_admin'" mat-list-item routerLink="/publish-stock">Company Stock</a>
+      <a *ngIf="userRole === 'trader'" mat-list-item routerLink="/orders">Trader Orders</a>
+      <a *ngIf="userRole === 'trader'" mat-list-item routerLink="/listed-stocks">Listed Stocks</a>
       <a mat-list-item href="#" class="menu-item logout" (click)="onLogout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
     <mat-toolbar color="primary" class="main-toolbar">
+      <div *ngIf="userRole === 'company_admin'">
+      <!-- <h3>Company Information</h3> -->
+      <p><strong>Name:</strong> {{ companyName }}</p>
+      <!-- <p><strong>Sector:</strong> {{ companySector }}</p> -->
+    </div>
       <span class="welcome-text">
         Welcome, {{ username }} | User KYC Status:
         <span *ngIf="kycStatus; else notVerified">Verified</span>
