@@ -3966,3 +3966,26 @@ Bad Request: /api/users/register/
 "POST /api/users/register/ HTTP/1.1" 400 73
 "GET /api/stocks/companies/ HTTP/1.1" 200 4747
 "POST /api/users/register/ HTTP/1.1" 201 118
+Watching for file changes with StatReloader
+"GET /api/stocks/companies/ HTTP/1.1" 200 4747
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 64
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 64
+"POST /api/users/register/ HTTP/1.1" 201 122
+"OPTIONS /api/users/verify-otp/ HTTP/1.1" 200 0
+Bad Request: /api/users/verify-otp/
+"POST /api/users/verify-otp/ HTTP/1.1" 400 60
+Bad Request: /api/users/verify-otp/
+"POST /api/users/verify-otp/ HTTP/1.1" 400 60
+Bad Request: /api/users/verify-otp/
+"POST /api/users/verify-otp/ HTTP/1.1" 400 60
+Bad Request: /api/users/verify-otp/
+"POST /api/users/verify-otp/ HTTP/1.1" 400 60
+Bad Request: /api/users/verify-otp/
+"POST /api/users/verify-otp/ HTTP/1.1" 400 60
+Too Many Requests: /api/users/verify-otp/
+"POST /api/users/verify-otp/ HTTP/1.1" 429 85
+"OPTIONS /api/users/resend-otp/ HTTP/1.1" 200 0
+Too Many Requests: /api/users/resend-otp/
+"POST /api/users/resend-otp/ HTTP/1.1" 429 53

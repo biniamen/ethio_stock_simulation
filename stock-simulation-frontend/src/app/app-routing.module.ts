@@ -23,6 +23,8 @@ import { OtpVerificationComponent } from './components/otp-verification/otp-veri
 const routes: Routes = [
   { path: 'login', component: AuthLoginComponent }, // Public route
   { path: 'register', component: AuthRegisterComponent }, // Public route
+  { path: 'otp-verification', component: OtpVerificationComponent }, // Public route for OTP verification
+
   {
     path: '',
     component: LayoutComponent,
@@ -31,7 +33,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent }, // Home page content only
       { path: 'orders', component: OrdersComponent },
       { path: 'publish-stock', component: PublishStockComponent },
-      { path: 'otp-verification', component: OtpVerificationComponent },
+      // { path: 'otp-verification', component: OtpVerificationComponent },
      // { path: 'kyc-pending', component: KycPendingComponent }, // Page after success
     ],
   },
