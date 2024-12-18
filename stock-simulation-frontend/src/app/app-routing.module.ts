@@ -8,6 +8,7 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { AuthGuard } from './auth.guard';
 import { LayoutComponent } from './layout/layout.component';
 import { PublishStockComponent } from './components/publish-stock/publish-stock.component';
+import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
 
 // const routes: Routes = [
 //   { path: 'login', component: AuthLoginComponent },
@@ -30,7 +31,8 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent }, // Home page content only
       { path: 'orders', component: OrdersComponent },
       { path: 'publish-stock', component: PublishStockComponent },
-
+      { path: 'otp-verification', component: OtpVerificationComponent },
+     // { path: 'kyc-pending', component: KycPendingComponent }, // Page after success
     ],
   },
   { path: '**', redirectTo: '/login' }, // Redirect unknown routes to login

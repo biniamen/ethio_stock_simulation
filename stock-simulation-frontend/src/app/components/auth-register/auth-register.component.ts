@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-register',
@@ -16,6 +17,7 @@ export class AuthRegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private toastr: ToastrService,
+    private router: Router,
     private http: HttpClient // For API calls to fetch companies
   ) {}
 
@@ -71,7 +73,10 @@ export class AuthRegisterComponent implements OnInit {
       (response) => {
         console.log('User registered successfully', response);
         this.toastr.success('Registration successful Waiting For Approval!', 'Success');
-        this.resetForm();
+         // Redirect to OTP verification page
+         this.router.navigate(['/otp-verification'], { queryParams: { email: this.user.email } });
+  
+        //this.resetForm();
       },
       (error) => {
         console.error('Error registering user', error);

@@ -127,3 +127,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             data['company_id'] = self.user.company_id
 
         return data
+
+class VerifyOTPSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    otp_code = serializers.CharField(max_length=6)

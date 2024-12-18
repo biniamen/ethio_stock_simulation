@@ -29,6 +29,7 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { LayoutComponent } from './layout/layout.component';
 import { UserTradedComponent } from './user-traded/user-traded.component';
 import { PublishStockComponent } from './components/publish-stock/publish-stock.component';
+import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PublishStockComponent } from './components/publish-stock/publish-stock.
     OrdersComponent,
     LayoutComponent,
     UserTradedComponent,
-    PublishStockComponent
+    PublishStockComponent,
+    OtpVerificationComponent
   ],
   imports: [
     BrowserModule,

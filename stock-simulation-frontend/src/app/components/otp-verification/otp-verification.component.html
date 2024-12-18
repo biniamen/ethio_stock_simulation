@@ -1,0 +1,20 @@
+<div>
+    <h1>Verify Your OTP</h1>
+  
+    <p>Email: {{ email }}</p>
+  
+    <div *ngIf="!attemptsExceeded">
+      <label>Enter OTP:</label>
+      <input type="text" [(ngModel)]="otpCode" placeholder="6-digit OTP" />
+      <button (click)="verifyOTP()">Verify</button>
+    </div>
+  
+    <div *ngIf="attemptsExceeded">
+      <p style="color: red;">Maximum attempts reached. Please resend OTP.</p>
+      <button (click)="resendOTP()">Resend OTP</button>
+    </div>
+  
+    <p *ngIf="successMessage" style="color: green;">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+  </div>
+  

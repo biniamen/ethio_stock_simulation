@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from rest_framework import generics, status
@@ -10,6 +11,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.core.mail import send_mail
 from django.conf import settings
 
+from ethio_stock_simulation.utils import generate_otp, send_verification_email
 from users.models import CustomUser
 from .serializers import UserSerializer, CustomTokenObtainPairSerializer
 from django.core.mail import EmailMessage
@@ -45,19 +47,29 @@ class RegisterUser(generics.CreateAPIView):
 
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        refresh = RefreshToken.for_user(user)
 
-        return Response(
-            {
-                "refresh": str(refresh),
-                "access": str(refresh.access_token),
-                "username": user.username,
-                "email": user.email,
-                "role": user.role,
-                "kyc_verified": user.kyc_verified,
-            },
-            status=status.HTTP_201_CREATED,
-        )
+        # Generate and send OTP
+        otp = generate_otp()
+        user.otp_code = otp
+        user.otp_sent_at = timezone.now()
+        user.save()
+
+        email_sent = send_verification_email(user.email, user.username, otp)
+
+        if email_sent:
+            return Response(
+                {
+                    "detail": "Registration successful. OTP sent to your email.",
+                    "redirect_url": f"/verify-otp/?email={user.email}"
+                },
+                status=status.HTTP_201_CREATED,
+            )
+        else:
+            return Response(
+                {"detail": "Failed to send OTP. Please try again."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     """
@@ -173,3 +185,71 @@ class ListUsersView(APIView):
         users = CustomUser.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
+
+class VerifyOTPView(APIView):
+    """
+    Verify OTP for user registration.
+    """
+    def post(self, request):
+        email = request.data.get('email')
+        otp_code = request.data.get('otp_code')
+
+        if not email or not otp_code:
+            return Response({"detail": "Email and OTP are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(email=email)
+
+            if user.otp_verified:
+                return Response({"detail": "OTP already verified."}, status=status.HTTP_200_OK)
+
+            # Check if maximum attempts have been reached
+            if user.otp_attempts >= 5:
+                return Response({"detail": "Maximum OTP attempts exceeded. Request a new OTP.",
+                                 "resend_required": True}, status=status.HTTP_429_TOO_MANY_REQUESTS)
+
+            # Verify OTP
+            if user.otp_code == otp_code and user.otp_sent_at + timezone.timedelta(minutes=10) > timezone.now():
+                user.otp_verified = True
+                user.otp_code = None
+                user.otp_attempts = 0  # Reset attempts
+                user.save()
+                return Response({"detail": "OTP verified successfully.", "verified": True}, status=status.HTTP_200_OK)
+            else:
+                user.otp_attempts += 1
+                user.save()
+                return Response({"detail": "Invalid or expired OTP.", "resend_required": False},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+        except User.DoesNotExist:
+            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+class ResendOTPView(APIView):
+    """
+    Resend OTP to the user's email.
+    """
+    def post(self, request):
+        email = request.data.get('email')
+
+        if not email:
+            return Response({"detail": "Email is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(email=email)
+
+            # Add a cooldown period
+            if user.otp_sent_at and timezone.now() - user.otp_sent_at < timezone.timedelta(minutes=2):
+                return Response({"detail": "Please wait before requesting a new OTP."},
+                                status=status.HTTP_429_TOO_MANY_REQUESTS)
+
+            # Generate and send a new OTP
+            otp = generate_otp()
+            user.otp_code = otp
+            user.otp_sent_at = timezone.now()
+            user.otp_attempts = 0  # Reset OTP attempts
+            user.save()
+            send_verification_email(user.email, user.username, otp)
+            return Response({"detail": "A new OTP has been sent to your email."}, status=status.HTTP_200_OK)
+
+        except User.DoesNotExist:
+            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
