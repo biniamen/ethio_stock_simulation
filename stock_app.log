@@ -4756,3 +4756,17 @@ Not Found: /api/stocks/user/9/portfolio/2/
 Bad Request: /api/stocks/orders/
 "POST /api/stocks/orders/ HTTP/1.1" 400 51
 Watching for file changes with StatReloader
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+"GET /admin/regulations/workinghours/3/change/ HTTP/1.1" 200 18151
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/regulations/workinghours/3/change/ HTTP/1.1" 302 0
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 18817
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 562
