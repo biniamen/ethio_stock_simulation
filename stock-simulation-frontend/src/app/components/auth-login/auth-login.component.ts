@@ -42,6 +42,7 @@ export class AuthLoginComponent implements OnInit {
         localStorage.setItem('kyc_status', response.kyc_verified);
         localStorage.setItem('role', response.role);
         localStorage.setItem('company_id', response.company_id);
+        localStorage.setItem('user_id', response.id);
 
         this.toastr.success('Login successful!', 'Success');
 

@@ -119,7 +119,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['email'] = self.user.email
         data['role'] = self.user.role
         data['kyc_verified'] = self.user.kyc_verified
-
+        data['id'] = self.user.id
         if self.user.role == 'trader':
             data['account_balance'] = str(self.user.account_balance)
             data['profit_balance'] = str(self.user.profit_balance)

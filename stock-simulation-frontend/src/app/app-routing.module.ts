@@ -9,6 +9,8 @@ import { AuthGuard } from './auth.guard';
 import { LayoutComponent } from './layout/layout.component';
 import { PublishStockComponent } from './components/publish-stock/publish-stock.component';
 import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
+import { StockListComponent } from './components/stock-list/stock-list.component';
+import { BidOrderComponent } from './components/bid-order/bid-order.component';
 
 // const routes: Routes = [
 //   { path: 'login', component: AuthLoginComponent },
@@ -32,7 +34,10 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent }, // Home page content only
       { path: 'orders', component: OrdersComponent },
+      { path: 'stocks', component: StockListComponent },
       { path: 'publish-stock', component: PublishStockComponent },
+      { path: 'bid-order', component: BidOrderComponent },
+
       // { path: 'otp-verification', component: OtpVerificationComponent },
      // { path: 'kyc-pending', component: KycPendingComponent }, // Page after success
     ],

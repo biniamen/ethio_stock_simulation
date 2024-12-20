@@ -1,0 +1,74 @@
+.stock-list-container {
+    padding: 16px;
+  }
+  
+  .search-bar {
+    display: block;
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .stock-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .stock-card {
+    width: 300px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .stock-card {
+    width: 300px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .stock-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  .modal-header {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  .modal-content {
+    padding: 16px;
+  }
+  
+  .form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .validation-error {
+    color: red;
+    font-size: 14px;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+  }
+  
+  button[mat-button] {
+    margin-right: 8px;
+  }
+  
+  .search-bar-small {
+    display: block;
+    width: 300px;
+    margin-bottom: 16px;
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .mat-error {
+    color: red;
+    font-size: 14px;
+  }
+  

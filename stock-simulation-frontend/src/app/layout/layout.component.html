@@ -6,7 +6,9 @@
 
       <a *ngIf="userRole === 'company_admin'" mat-list-item routerLink="/publish-stock">Company Stock</a>
       <a *ngIf="userRole === 'trader'" mat-list-item routerLink="/orders">Trader Orders</a>
-      <a *ngIf="userRole === 'trader'" mat-list-item routerLink="/listed-stocks">Listed Stocks</a>
+      <a *ngIf="userRole === 'trader'" mat-list-item routerLink="/stocks">Listed Stocks</a>
+      <a *ngIf="userRole === 'trader'" mat-list-item routerLink="/bid-order">Bid Order</a>
+
       <a mat-list-item href="#" class="menu-item logout" (click)="onLogout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>

@@ -17,6 +17,8 @@ import { MatPaginatorModule } from '@angular/material/paginator'; // For paginat
 import { MatSortModule } from '@angular/material/sort'; // For sorting
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 // Components
 import { AppComponent } from './app.component';
@@ -30,6 +32,9 @@ import { LayoutComponent } from './layout/layout.component';
 import { UserTradedComponent } from './user-traded/user-traded.component';
 import { PublishStockComponent } from './components/publish-stock/publish-stock.component';
 import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
+import { StockListComponent } from './components/stock-list/stock-list.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { BidOrderComponent } from './components/bid-order/bid-order.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +47,9 @@ import { OtpVerificationComponent } from './components/otp-verification/otp-veri
     LayoutComponent,
     UserTradedComponent,
     PublishStockComponent,
-    OtpVerificationComponent
+    OtpVerificationComponent,
+    StockListComponent,
+    BidOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +66,7 @@ import { OtpVerificationComponent } from './components/otp-verification/otp-veri
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
     MatCardModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
@@ -69,6 +77,7 @@ import { OtpVerificationComponent } from './components/otp-verification/otp-veri
     MatListModule, // Add this module
     AppRoutingModule,
     MatTableModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

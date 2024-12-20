@@ -1,9 +1,11 @@
+from django.forms import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from .models import UsersPortfolio, ListedCompany, Stocks, Orders, Trade, Dividend
 from .serializers import (
+    DirectStockPurchaseSerializer,
     UsersPortfolioSerializer,
     ListedCompanySerializer,
     StocksSerializer,
@@ -95,3 +97,46 @@ class UserTradesView(APIView):
 class DividendViewSet(viewsets.ModelViewSet):
     queryset = Dividend.objects.all()
     serializer_class = DividendSerializer
+
+
+class DirectStockPurchaseView(APIView):
+    def post(self, request, *args, **kwargs):
+        user_id = request.data.get("user_id")
+        stock_id = request.data.get("stock_id")
+        quantity = request.data.get("quantity")
+
+        if user_id is None or stock_id is None or quantity is None:
+            return Response({"detail": "user_id, stock_id, and quantity are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            quantity = int(quantity)
+        except (ValueError, TypeError):
+            return Response({"detail": "Invalid quantity value."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            order, trade = Stocks.execute_direct_purchase(user_id, stock_id, quantity)
+            return Response({
+                "message": "Direct purchase completed successfully.",
+                "order_id": order.id,
+                "trade_id": trade.id,
+                "stock_symbol": order.stock_symbol,
+                "quantity": order.quantity,
+                "price": str(order.price),
+                "total_cost": str(order.price * order.quantity),
+                "status": order.status
+            }, status=status.HTTP_201_CREATED)
+        except ValidationError as e:
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"detail": "An unexpected error occurred."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class UserSpecificTradesView(APIView):
+    """
+    GET /api/stocks/user/<user_id>/trades/
+    Returns all trades for the specified user.
+    """
+    def get(self, request, user_id, *args, **kwargs):
+        # Fetch all trades for the given user_id
+        trades = Trade.objects.filter(user_id=user_id)
+        serializer = TradeSerializer(trades, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

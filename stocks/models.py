@@ -10,6 +10,8 @@ from regulations.utils import get_regulation_value
 from regulations.models import StockSuspension, WorkingHours
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
+from django.core.management import call_command
+
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -65,6 +67,68 @@ class Stocks(models.Model):
         if self.max_trader_buy_limit > self.total_shares:
             raise ValueError("Trader buy limit cannot exceed the total shares of the company.")
 
+    @classmethod
+    def execute_direct_purchase(cls, user_id, stock_id, quantity):
+        # Fetch User and Stock
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise ValidationError("Invalid user ID.")
+        
+        try:
+            stock = cls.objects.get(id=stock_id)
+        except cls.DoesNotExist:
+            raise ValidationError("Invalid stock ID.")
+
+        if quantity <= 0:
+            raise ValidationError("Quantity must be greater than zero.")
+
+        if quantity > stock.max_trader_buy_limit:
+            raise ValidationError(f"Cannot buy more than {stock.max_trader_buy_limit} shares directly.")
+
+        if stock.available_shares < quantity:
+            raise ValidationError("Insufficient shares available from the company.")
+
+        total_cost = Decimal(quantity) * stock.current_price
+        if user.account_balance < total_cost:
+            raise ValidationError("Insufficient account balance to complete the purchase.")
+
+        # Deduct user balance
+        user.update_account_balance(-total_cost)
+
+        # Create the order
+        order = Orders.objects.create(
+            user=user,
+            stock=stock,
+            stock_symbol=stock.ticker_symbol,
+            order_type='Market',
+            action='Buy',
+            price=stock.current_price,
+            quantity=quantity,
+            status='Fully Completed'
+        )
+
+        # Create the trade
+        trade = Trade.objects.create(
+            user=user,
+            stock=stock,
+            quantity=quantity,
+            price=stock.current_price
+        )
+
+        # Update user portfolio
+        portfolio, _ = UsersPortfolio.objects.get_or_create(user=user)
+        portfolio.quantity += quantity
+        portfolio.total_investment += total_cost
+        if portfolio.quantity > 0:
+            portfolio.average_purchase_price = portfolio.total_investment / portfolio.quantity
+        portfolio.save()
+
+        # Update stock
+        stock.available_shares -= quantity
+        stock.save()
+
+        return order, trade
 
 
 class Orders(models.Model):
@@ -553,7 +617,9 @@ class Trade(models.Model):
             trade=trade_seller,
             message=seller_message
         )
-        
+         # After the trade is executed and notifications sent, call the command
+        # from django.core.management import call_command
+        # call_command('update_closing_prices')
 
 class Dividend(models.Model):
     company = models.ForeignKey(ListedCompany, on_delete=models.CASCADE, related_name='dividends')
@@ -564,3 +630,12 @@ class Dividend(models.Model):
 
     def __str__(self):
         return f"Dividend for {self.company.company_name} ({self.budget_year})"
+
+
+class DailyClosingPrice(models.Model):
+    stock = models.ForeignKey(Stocks, on_delete=models.CASCADE, related_name='daily_closes')
+    date = models.DateField(auto_now_add=True)
+    closing_price = models.DecimalField(max_digits=15, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.stock.ticker_symbol} closing price on {self.date}: {self.closing_price}"  

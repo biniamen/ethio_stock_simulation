@@ -1,0 +1,76 @@
+<div class="stock-list-container">
+    <input
+      type="text"
+      placeholder="Search stocks..."
+      [(ngModel)]="searchText"
+      (input)="filterStocks()"
+      class="search-bar-small"
+    />
+  
+    <pagination-controls
+      (pageChange)="currentPage = $event"
+    ></pagination-controls>
+  
+    <div class="stock-cards">
+      <mat-card
+        *ngFor="let stock of filteredStocks | paginate: { itemsPerPage: 10, currentPage: currentPage }"
+        class="stock-card"
+        id="stock-card-{{ stock.id }}"
+        (mouseover)="hoverEffect(true, stock.id)"
+        (mouseout)="hoverEffect(false, stock.id)"
+      >
+        <mat-card-header>
+          <mat-card-title>{{ stock.ticker_symbol }}</mat-card-title>
+          <mat-card-subtitle>Company ID: {{ stock.company }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Current Price:</strong> {{ stock.current_price }}</p>
+          <p><strong>Total Shares:</strong> {{ stock.total_shares }}</p>
+          <p><strong>Available Shares:</strong> {{ stock.available_shares }}</p>
+          <p><strong>Max Trader Buy Limit:</strong> {{ stock.max_trader_buy_limit }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="openBuyModal(stock)">
+            Buy
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  
+  
+  <ng-template #buyModal>
+    <div class="modal-header">
+      <h2>Buy {{ selectedStock?.ticker_symbol }}</h2>
+    </div>
+    <div class="modal-content">
+      <p><strong>Company:</strong> {{ selectedStock?.company.company_name }}</p>
+      <p><strong>Current Price:</strong> {{ selectedStock?.current_price }}</p>
+      <p><strong>Available Shares:</strong> {{ selectedStock?.available_shares }}</p>
+      <p><strong>Max Trader Buy Limit:</strong> {{ selectedStock?.max_trader_buy_limit }}</p>
+  
+      <form>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Quantity</mat-label>
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="quantity"
+            name="quantity"
+            required
+          />
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="modal-actions">
+      <button mat-button (click)="closeModal()">Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="placeOrder()"
+      >
+        Place Order
+      </button>
+    </div>
+  </ng-template>
+  
