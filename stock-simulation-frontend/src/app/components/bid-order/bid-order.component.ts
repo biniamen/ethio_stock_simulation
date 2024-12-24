@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 
 interface Stock {
@@ -206,16 +206,13 @@ export class BidOrderComponent implements OnInit {
       quantity: this.quantity
     };
   
-    // For Market orders, ensure a price is sent:
+    // If Market order, use the stock's current price
     if (this.orderType === 'Market') {
-      // For a Market order, set the price to the stock's current price.
-      // Assume you have the current stock details and can access its current_price.
-      // If the backend doesn't provide current_price, you may need to store it when you fetchStocks().
       const selectedStock = this.stocks.find(s => s.id === this.selectedStockId);
       const currentStockPrice = selectedStock ? selectedStock.current_price : 0;
       payload.price = currentStockPrice;
     } else {
-      // Limit orders require a price
+      // Limit orders require a user-specified price
       if (!this.price) {
         alert('Price is required for a Limit order.');
         return;
@@ -228,15 +225,43 @@ export class BidOrderComponent implements OnInit {
       'Content-Type': 'application/json'
     });
   
-    this.http.post('http://localhost:8000/api/stocks/orders/', payload, { headers }).subscribe({
-      next: () => {
-        alert("Order placed successfully!");
-        this.dialog.closeAll();
-      },
-      error: (err) => {
-        console.error('Error placing order:', err);
-        alert(err.error?.detail || 'Failed to place the order.');
-      }
-    });
-  }  
+    this.http.post('http://localhost:8000/api/stocks/orders/', payload, { headers })
+      .subscribe({
+        next: () => {
+          alert("Order placed successfully!");
+          this.dialog.closeAll();
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error('Error placing order:', err);
+  
+          // Default error message
+          let message = 'Failed to place the order.';
+  
+          // 1) Check if we have a DRF "detail" key
+          if (err.error && typeof err.error.detail === 'string') {
+            message = err.error.detail;  // e.g. "Insufficient account balance..."
+          }
+          // 2) Else if it might be field-level errors
+          else if (err.error && typeof err.error === 'object') {
+            /*
+              If the error is:
+              {
+                "user": ["This field is required."],
+                "price": ["Enter a valid price."]
+              }
+              We'll collect them into a single string
+            */
+            const fieldErrors = [];
+            for (const key of Object.keys(err.error)) {
+              fieldErrors.push(`${key}: ${err.error[key]}`);
+            }
+            if (fieldErrors.length > 0) {
+              message = fieldErrors.join('\n');
+            }
+          }
+  
+          alert(message);
+        }
+      });
+  } 
 }

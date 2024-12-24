@@ -35,6 +35,8 @@ import { OtpVerificationComponent } from './components/otp-verification/otp-veri
 import { StockListComponent } from './components/stock-list/stock-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BidOrderComponent } from './components/bid-order/bid-order.component';
+import { AddStockComponent } from './components/add-stock/add-stock.component';
+import { DisclosureUploadComponent } from './components/disclosure-upload/disclosure-upload.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { BidOrderComponent } from './components/bid-order/bid-order.component';
     PublishStockComponent,
     OtpVerificationComponent,
     StockListComponent,
-    BidOrderComponent
+    BidOrderComponent,
+    AddStockComponent,
+    DisclosureUploadComponent
   ],
   imports: [
     BrowserModule,

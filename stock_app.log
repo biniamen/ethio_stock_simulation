@@ -4770,3 +4770,333 @@ Bad Request: /api/stocks/orders/
 Bad Request: /api/stocks/orders/
 "POST /api/stocks/orders/ HTTP/1.1" 400 51
 "GET /api/stocks/user/orders/ HTTP/1.1" 200 562
+Watching for file changes with StatReloader
+"OPTIONS /api/stocks/stocks/ HTTP/1.1" 200 0
+Bad Request: /api/stocks/stocks/
+"POST /api/stocks/stocks/ HTTP/1.1" 400 68
+Bad Request: /api/stocks/stocks/
+"POST /api/stocks/stocks/ HTTP/1.1" 400 68
+Bad Request: /api/stocks/stocks/
+"POST /api/stocks/stocks/ HTTP/1.1" 400 68
+Bad Request: /api/stocks/stocks/
+"POST /api/stocks/stocks/ HTTP/1.1" 400 68
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /api/stocks/ HTTP/1.1" 200 6087
+"GET /api/stocks/ HTTP/1.1" 200 6087
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/stocks/ HTTP/1.1" 200 6250
+Unauthorized: /api/stocks/disclosures/
+"GET /api/stocks/disclosures/ HTTP/1.1" 401 5256
+Unauthorized: /api/stocks/disclosures/
+"GET /api/stocks/disclosures/ HTTP/1.1" 401 58
+"POST /api/users/login/ HTTP/1.1" 200 797
+"GET /api/stocks/disclosures/ HTTP/1.1" 200 2
+Unauthorized: /api/stocks/disclosures/
+"POST /api/stocks/disclosures/ HTTP/1.1" 401 58
+Internal Server Error: /api/stocks/disclosures/
+Traceback (most recent call last):
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py", line 158, in create
+    serializer.is_valid(raise_exception=True)
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 442, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 495, in to_internal_value
+    for field in fields:
+                 ^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 378, in _writable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `type` is not valid for model `Disclosure` in `stocks.serializers.DisclosureSerializer`.
+"POST /api/stocks/disclosures/ HTTP/1.1" 500 146659
+Internal Server Error: /api/stocks/disclosures/
+Traceback (most recent call last):
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py", line 158, in create
+    serializer.is_valid(raise_exception=True)
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 442, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 495, in to_internal_value
+    for field in fields:
+                 ^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 378, in _writable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `type` is not valid for model `Disclosure` in `stocks.serializers.DisclosureSerializer`.
+"POST /api/stocks/disclosures/ HTTP/1.1" 500 146623
+Internal Server Error: /api/stocks/disclosures/
+Traceback (most recent call last):
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py", line 158, in create
+    serializer.is_valid(raise_exception=True)
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 442, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 495, in to_internal_value
+    for field in fields:
+                 ^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 378, in _writable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\env\Lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `type` is not valid for model `Disclosure` in `stocks.serializers.DisclosureSerializer`.
+"POST /api/stocks/disclosures/ HTTP/1.1" 500 146656
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\ethio_stock_simulation\utils.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\__init__.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 20574
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 943
+"OPTIONS /api/stocks/stocks/ HTTP/1.1" 200 0
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8397
+Not Found: /api/companies/
+"POST /api/companies/ HTTP/1.1" 404 2699
+"GET /api/stocks/companies/ HTTP/1.1" 200 18830
+"POST /api/stocks/companies/ HTTP/1.1" 201 105
+"POST /api/stocks/stocks/ HTTP/1.1" 201 181
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8579
+"OPTIONS /api/stocks/direct_buy/ HTTP/1.1" 200 0
+Internal Server Error: /api/stocks/direct_buy/
+"POST /api/stocks/direct_buy/ HTTP/1.1" 500 42
+Internal Server Error: /api/stocks/direct_buy/
+"POST /api/stocks/direct_buy/ HTTP/1.1" 500 42
+Internal Server Error: /api/stocks/direct_buy/
+"POST /api/stocks/direct_buy/ HTTP/1.1" 500 42
+Internal Server Error: /api/stocks/direct_buy/
+"POST /api/stocks/direct_buy/ HTTP/1.1" 500 42
+Not Found: /api/stocks/portfolios/131/
+"GET //api/stocks/portfolios/131/ HTTP/1.1" 404 55
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 376
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8579
+"OPTIONS /api/stocks/orders/ HTTP/1.1" 200 0
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8579
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /api/stocks/portfolios/131/
+"GET //api/stocks/portfolios/131/ HTTP/1.1" 404 55
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8579
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8579
+Bad Request: /api/stocks/orders/
+"POST /api/stocks/orders/ HTTP/1.1" 400 51
+"GET /admin/ HTTP/1.1" 200 20574
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 18576
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /admin/regulations/workinghours/5/change/ HTTP/1.1" 200 18148
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"POST /admin/regulations/workinghours/5/change/ HTTP/1.1" 302 0
+"GET /admin/regulations/workinghours/ HTTP/1.1" 200 18815
+"GET /admin/jsi18n/ HTTP/1.1" 200 3342
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8579
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8579
+"POST /api/stocks/orders/ HTTP/1.1" 201 263
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 568
+Watching for file changes with StatReloader

@@ -11,6 +11,8 @@ import { PublishStockComponent } from './components/publish-stock/publish-stock.
 import { OtpVerificationComponent } from './components/otp-verification/otp-verification.component';
 import { StockListComponent } from './components/stock-list/stock-list.component';
 import { BidOrderComponent } from './components/bid-order/bid-order.component';
+import { AddStockComponent } from './components/add-stock/add-stock.component';
+import { DisclosureUploadComponent } from './components/disclosure-upload/disclosure-upload.component';
 
 // const routes: Routes = [
 //   { path: 'login', component: AuthLoginComponent },
@@ -37,6 +39,8 @@ const routes: Routes = [
       { path: 'stocks', component: StockListComponent },
       { path: 'publish-stock', component: PublishStockComponent },
       { path: 'bid-order', component: BidOrderComponent },
+      { path: 'add-stock', component: AddStockComponent },
+      { path: 'upload-disclosure', component: DisclosureUploadComponent },
 
       // { path: 'otp-verification', component: OtpVerificationComponent },
      // { path: 'kyc-pending', component: KycPendingComponent }, // Page after success

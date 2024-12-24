@@ -5,12 +5,16 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from rest_framework.exceptions import ValidationError
 import logging
+from ethio_stock_simulation.utils import send_order_notification
 from regulations.models import StockSuspension
 from regulations.utils import get_regulation_value
 from regulations.models import StockSuspension, WorkingHours
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from django.core.management import call_command
+from django.utils.translation import gettext_lazy as _
+from .models_suspicious import SuspiciousActivity  # Import here to include the model
+
 
 
 # Configure logging
@@ -582,44 +586,65 @@ class Trade(models.Model):
     #         price = sell_order.stock.current_price
     #     cls.objects.create(user=buy_order.user, stock=buy_order.stock, quantity=quantity, price=price)
     #     cls.objects.create(user=sell_order.user, stock=sell_order.stock, quantity=quantity, price=price)
+  
     @classmethod
     def execute_trade(cls, buy_order, sell_order, quantity, price=None):
-        """
-        Executes a trade between a buy and sell order.
-        """
+        from .surveillance import detect_suspicious_trade  # function-level import if needed
+        from decimal import Decimal
+        from .models import UsersPortfolio  # or your correct import path for UsersPortfolio
+
         if price is None:
-            price = sell_order.stock.current_price
+            price = sell_order.stock.current_price if sell_order else buy_order.stock.current_price
 
-        # Create trade entries for buyer and seller
-        trade_buyer = cls.objects.create(user=buy_order.user, stock=buy_order.stock, quantity=quantity, price=price)
-        trade_seller = cls.objects.create(user=sell_order.user, stock=sell_order.stock, quantity=quantity, price=price)
+        # 1. Create trade entries for buyer and seller
+        trade_buyer = cls.objects.create(
+            user=buy_order.user,
+            stock=buy_order.stock,
+            quantity=quantity,
+            price=price
+        )
+        trade_seller = cls.objects.create(
+            user=sell_order.user,
+            stock=sell_order.stock,
+            quantity=quantity,
+            price=price
+        )
 
-        # Log and Notify the buyer
+        # 2. Ensure both buyer & seller have a UsersPortfolio, defaulting to zero
+        UsersPortfolio.objects.get_or_create(
+            user=buy_order.user,
+            defaults={
+                'quantity': 0,
+                'average_purchase_price': Decimal('0.00'),
+                'total_investment': Decimal('0.00'),
+            }
+        )
+        UsersPortfolio.objects.get_or_create(
+            user=sell_order.user,
+            defaults={
+                'quantity': 0,
+                'average_purchase_price': Decimal('0.00'),
+                'total_investment': Decimal('0.00'),
+            }
+        )
+
+        # 3. Notifications & Logging
         buyer_message = (
             f"Trade executed: You bought {quantity} shares of {buy_order.stock.ticker_symbol} "
             f"at {price} successfully."
         )
-        logger.info(f"Notification for Buyer {buy_order.user.username}: {buyer_message}")
-        Notification.objects.create(
-            user=buy_order.user,
-            trade=trade_buyer,
-            message=buyer_message
-        )
+        Notification.objects.create(user=buy_order.user, trade=trade_buyer, message=buyer_message)
 
-        # Log and Notify the seller
         seller_message = (
             f"Trade executed: You sold {quantity} shares of {sell_order.stock.ticker_symbol} "
             f"at {price} successfully."
         )
-        logger.info(f"Notification for Seller {sell_order.user.username}: {seller_message}")
-        Notification.objects.create(
-            user=sell_order.user,
-            trade=trade_seller,
-            message=seller_message
-        )
-         # After the trade is executed and notifications sent, call the command
-        # from django.core.management import call_command
-        # call_command('update_closing_prices')
+        Notification.objects.create(user=sell_order.user, trade=trade_seller, message=seller_message)
+
+        # 4. (Optional) Email notifications, suspicious checks, etc.
+        # ...
+        detect_suspicious_trade(trade_buyer)
+        detect_suspicious_trade(trade_seller)
 
 class Dividend(models.Model):
     company = models.ForeignKey(ListedCompany, on_delete=models.CASCADE, related_name='dividends')
@@ -639,3 +664,52 @@ class DailyClosingPrice(models.Model):
 
     def __str__(self):
         return f"{self.stock.ticker_symbol} closing price on {self.date}: {self.closing_price}"  
+
+class Disclosure(models.Model):
+    """
+    Disclosure model for storing documents like financial statements, annual reports, etc.
+    """
+
+    class DisclosureTypes(models.TextChoices):
+        FINANCIAL_STATEMENT = 'Financial Statement', _('Financial Statement')
+        ANNUAL_REPORT       = 'Annual Report', _('Annual Report')
+        MATERIAL_EVENT      = 'Material Event', _('Material Event')
+        QUARTERLY_REPORT    = 'Quarterly Report', _('Quarterly Report')
+
+    company = models.ForeignKey(
+        ListedCompany,
+        on_delete=models.CASCADE,
+        related_name='disclosures',
+        help_text=_("Company to which this disclosure belongs.")
+    )
+    # Using 'disclosure_type' is often safer than using the reserved word 'type'.
+    type = models.CharField(
+        max_length=50,
+        choices=DisclosureTypes.choices,
+        help_text=_("Type of disclosure (e.g., 'Financial Statement', 'Annual Report').")
+    )
+    year = models.PositiveIntegerField(
+        help_text=_("Fiscal or reporting year for this disclosure.")
+    )
+    file = models.FileField(
+        upload_to='disclosures/',
+        help_text=_("File containing disclosure document.")
+    )
+    description = models.TextField(
+        null=True,
+        blank=True,
+        help_text=_("Optional description or summary of the disclosure.")
+    )
+    uploaded_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text=_("Timestamp indicating when this disclosure was uploaded.")
+    )
+
+    class Meta:
+        ordering = ['-year', '-uploaded_at']
+        verbose_name = "Disclosure"
+        verbose_name_plural = "Disclosures"
+
+    def __str__(self):
+        return f"{self.get_disclosure_type_display()} ({self.year}) - {self.company.name}"
+

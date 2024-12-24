@@ -5,6 +5,9 @@
       <!-- <button mat-button [routerLink]="['/publish-stock']">Company Stock</button> -->
 
       <a *ngIf="userRole === 'company_admin'" mat-list-item routerLink="/publish-stock">Company Stock</a>
+      <a *ngIf="userRole === 'company_admin'" mat-list-item routerLink="/add-stock">Add Stock</a>
+      <a *ngIf="userRole === 'company_admin'" mat-list-item routerLink="/upload-disclosure">Upload Disclosure</a>
+
       <a *ngIf="userRole === 'trader'" mat-list-item routerLink="/orders">Trader Orders</a>
       <a *ngIf="userRole === 'trader'" mat-list-item routerLink="/stocks">Listed Stocks</a>
       <a *ngIf="userRole === 'trader'" mat-list-item routerLink="/bid-order">Bid Order</a>

@@ -3,9 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from .models import UsersPortfolio, ListedCompany, Stocks, Orders, Trade, Dividend
+from .models import Disclosure, UsersPortfolio, ListedCompany, Stocks, Orders, Trade, Dividend
 from .serializers import (
     DirectStockPurchaseSerializer,
+    DisclosureSerializer,
     UsersPortfolioSerializer,
     ListedCompanySerializer,
     StocksSerializer,
@@ -13,7 +14,12 @@ from .serializers import (
     TradeSerializer,
     DividendSerializer,
 )
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from .models import SuspiciousActivity
+from .serializers import SuspiciousActivitySerializer
 
 class UsersPortfolioViewSet(viewsets.ModelViewSet):
     queryset = UsersPortfolio.objects.all()
@@ -140,3 +146,48 @@ class UserSpecificTradesView(APIView):
         trades = Trade.objects.filter(user_id=user_id)
         serializer = TradeSerializer(trades, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class DisclosureViewSet(viewsets.ModelViewSet):
+    queryset = Disclosure.objects.all()
+    serializer_class = DisclosureSerializer
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        # Example role check — adjust to match your logic (e.g. request.user.role == 'company_admin')
+        # If no role check is needed, remove these lines.
+        if hasattr(request.user, 'role') and request.user.role != 'company_admin':
+            return Response({"detail": "Only company admins can upload disclosures."},
+                            status=status.HTTP_403_FORBIDDEN)
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        disclosure = serializer.save()  # Creates the new Disclosure
+        return Response({
+            "message": "Disclosure uploaded successfully.",
+            "disclosure": self.get_serializer(disclosure).data
+        }, status=status.HTTP_201_CREATED)
+        
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])  # or staff-only permission
+def suspicious_activities(request):
+    """
+    GET:  Retrieves unreviewed suspicious activities (staff only).
+    POST: Marks a suspicious activity as reviewed by ID (staff only).
+    """
+    if not request.user.is_staff:
+        return Response({"error": "Only staff can manage suspicious activities."}, status=403)
+
+    if request.method == 'GET':
+        activities = SuspiciousActivity.objects.filter(reviewed=False)
+        serializer = SuspiciousActivitySerializer(activities, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        activity_id = request.data.get('activity_id')
+        if not activity_id:
+            return Response({"error": "activity_id is required."}, status=400)
+
+        activity = get_object_or_404(SuspiciousActivity, id=activity_id)
+        activity.reviewed = True
+        activity.save()
+        return Response({"message": "Activity marked as reviewed."})

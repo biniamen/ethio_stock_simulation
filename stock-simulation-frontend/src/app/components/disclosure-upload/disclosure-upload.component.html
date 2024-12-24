@@ -1,0 +1,62 @@
+<div class="container">
+    <mat-card>
+      <mat-card-title>Upload New Disclosure</mat-card-title>
+  
+      <form [formGroup]="disclosureForm" (ngSubmit)="onSubmit()">
+        <!-- Disclosure Type -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Disclosure Type</mat-label>
+          <mat-select formControlName="type" required>
+            <mat-option *ngFor="let t of disclosureTypes" [value]="t">
+              {{ t }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="disclosureForm.get('type')?.invalid">
+            Disclosure type is required
+          </mat-error>
+        </mat-form-field>
+  
+        <!-- Year -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Year</mat-label>
+          <input matInput type="number" formControlName="year" required />
+          <mat-error *ngIf="disclosureForm.get('year')?.hasError('required')">
+            Year is required
+          </mat-error>
+          <mat-error *ngIf="disclosureForm.get('year')?.hasError('min')">
+            Please enter a valid year (>= 1900)
+          </mat-error>
+        </mat-form-field>
+  
+        <!-- Description (Optional) -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+  
+        <!-- File Input -->
+        <div class="full-width">
+          <label for="file">Select File:</label>
+          <input
+            id="file"
+            type="file"
+            (change)="onFileSelected($event)"
+            required
+            style="display: block; margin-top: 8px;"
+          />
+        </div>
+  
+        <!-- Submit Button -->
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          style="margin-top: 20px;"
+          [disabled]="disclosureForm.invalid || !selectedFile"
+        >
+          Upload Disclosure
+        </button>
+      </form>
+    </mat-card>
+  </div>
+  

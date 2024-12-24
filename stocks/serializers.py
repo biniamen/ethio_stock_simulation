@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UsersPortfolio, ListedCompany, Stocks, Orders, Trade, Dividend
+from .models import Disclosure, SuspiciousActivity, UsersPortfolio, ListedCompany, Stocks, Orders, Trade, Dividend
 
 
 class UsersPortfolioSerializer(serializers.ModelSerializer):
@@ -61,4 +61,14 @@ class DirectStockPurchaseSerializer(serializers.Serializer):
         attrs['stock'] = stock
         return attrs
     
+
+class DisclosureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Disclosure
+        fields = ['id', 'company', 'type', 'year', 'file', 'description', 'uploaded_at']
+        read_only_fields = ['uploaded_at']
     
+class SuspiciousActivitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SuspiciousActivity
+        fields = '__all__'
