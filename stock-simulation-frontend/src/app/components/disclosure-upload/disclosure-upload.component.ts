@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { DisclosureService } from 'src/app/services/disclosure.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-disclosure-upload',
@@ -10,30 +15,73 @@ import { DisclosureService } from 'src/app/services/disclosure.service';
 export class DisclosureUploadComponent implements OnInit {
   disclosureForm!: FormGroup;
   selectedFile: File | null = null;
+  dataSource = new MatTableDataSource<any>();
+  displayedColumns: string[] = ['id', 'type', 'year', 'description', 'file'];
+  disclosureTypes = ['Financial Statement', 'Annual Report', 'Material Event', 'Quarterly Report'];
+  isLoading = true;
 
-  // Replace or adjust these to match your actual model choices
-  disclosureTypes = [
-    'Financial Statement',
-    'Annual Report',
-    'Material Event',
-    'Quarterly Report'
-  ];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  // Reference the modal template using @ViewChild
+  @ViewChild('modal', { static: true }) modal!: TemplateRef<any>;
 
   constructor(
     private fb: FormBuilder,
-    private disclosureService: DisclosureService
+    private dialog: MatDialog,
+    private disclosureService: DisclosureService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    // Suppose you stored the logged-in company's ID in localStorage under key 'companyId'
-    const companyId = localStorage.getItem('companyId');
-
+    const companyId = localStorage.getItem('company_id');
     this.disclosureForm = this.fb.group({
       company: [companyId, Validators.required],
       type: [null, Validators.required],
       year: [null, [Validators.required, Validators.min(1900)]],
       description: [null]
     });
+
+    if (companyId) {
+      this.loadCompanyDisclosures(+companyId);
+    }
+  }
+
+  loadCompanyDisclosures(companyId: number): void {
+    this.isLoading = true;
+    this.disclosureService.getCompanyDisclosures(companyId).subscribe({
+      next: (data) => {
+        this.dataSource.data = data;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        const errorMessage = err.error.detail || 'Failed to load disclosures.';
+        this.toastr.error(errorMessage, 'Error');
+        this.isLoading = false;
+      }
+    });
+  }
+
+  openModal(): void {
+    const dialogRef = this.dialog.open(this.modal, {
+      width: '600px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const companyId = localStorage.getItem('company_id');
+        if (companyId) {
+          this.loadCompanyDisclosures(+companyId);
+        }
+      }
+    });
+  }
+
+  closeModal(): void {
+    this.dialog.closeAll();
   }
 
   onFileSelected(event: any): void {
@@ -41,17 +89,12 @@ export class DisclosureUploadComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.disclosureForm.valid) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-    if (!this.selectedFile) {
-      alert('Please select a file.');
+    if (!this.disclosureForm.valid || !this.selectedFile) {
+      this.toastr.error('Please fill in all required fields.', 'Validation Error');
       return;
     }
 
     const formData = new FormData();
-    // Make sure your serializer expects "company" as an integer
     formData.append('company', this.disclosureForm.value.company);
     formData.append('type', this.disclosureForm.value.type);
     formData.append('year', this.disclosureForm.value.year);
@@ -60,15 +103,25 @@ export class DisclosureUploadComponent implements OnInit {
 
     this.disclosureService.uploadDisclosure(formData).subscribe({
       next: (res) => {
-        console.log('Uploaded Successfully:', res);
-        alert('Disclosure uploaded successfully!');
-        this.disclosureForm.reset();
-        this.selectedFile = null;
+        this.toastr.success('Disclosure uploaded successfully!', 'Success');
+        this.closeModal();
+        const companyId = this.disclosureForm.value.company;
+        this.loadCompanyDisclosures(companyId);
       },
       error: (err) => {
-        console.error('Error uploading disclosure:', err);
-        alert('Failed to upload disclosure.');
+        const errorMessage = err.error.detail || 'Failed to upload disclosure.';
+        this.toastr.error(errorMessage, 'Error');
       }
     });
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    // Reset pagination to the first page when a filter is applied
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

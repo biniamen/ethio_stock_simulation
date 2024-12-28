@@ -37,6 +37,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BidOrderComponent } from './components/bid-order/bid-order.component';
 import { AddStockComponent } from './components/add-stock/add-stock.component';
 import { DisclosureUploadComponent } from './components/disclosure-upload/disclosure-upload.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { DisclosureUploadComponent } from './components/disclosure-upload/disclo
     AppRoutingModule,
     MatTableModule,
     NgxPaginationModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

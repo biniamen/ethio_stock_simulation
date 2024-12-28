@@ -5100,3 +5100,338 @@ Bad Request: /api/stocks/orders/
 "POST /api/stocks/orders/ HTTP/1.1" 201 263
 "GET /api/stocks/user/orders/ HTTP/1.1" 200 568
 Watching for file changes with StatReloader
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8578
+"POST /api/stocks/orders/ HTTP/1.1" 201 262
+"POST /api/stocks/orders/ HTTP/1.1" 201 262
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8578
+"POST /api/stocks/orders/ HTTP/1.1" 201 263
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 1142
+"POST /api/stocks/orders/ HTTP/1.1" 201 268
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 1339
+Watching for file changes with StatReloader
+Not Found: /
+"GET / HTTP/1.1" 404 2638
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2689
+"GET /api/stocks/orders/ HTTP/1.1" 200 32048
+"GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+"GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3426
+"GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+"GET /static/rest_framework/css/default.css HTTP/1.1" 200 1152
+"GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1793
+"GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3796
+"GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+"GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 200 59
+"GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+"GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+"GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+"GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 200 87533
+"GET /api/stocks/ HTTP/1.1" 200 6250
+Not Found: /api/
+"GET /api/ HTTP/1.1" 404 2668
+Not Found: /api/users/
+"GET /api/users/ HTTP/1.1" 404 5267
+Unauthorized: /api/users/list/
+"GET /api/users/list/ HTTP/1.1" 401 5076
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+Unauthorized: /api/stocks/user/orders/
+"GET /api/stocks/user/orders/ HTTP/1.1" 401 183
+Unauthorized: /api/stocks/user/orders/
+"GET /api/stocks/user/orders/ HTTP/1.1" 401 183
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 940
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 1339
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 1339
+"GET /api/stocks/orders/ HTTP/1.1" 200 32048
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 1339
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 1339
+"GET /api/stocks/ HTTP/1.1" 200 6250
+"GET /api/stocks/stocks/ HTTP/1.1" 200 31779
+"GET /api/stocks/stocks/ HTTP/1.1" 200 8577
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 1339
+Watching for file changes with StatReloader
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 1339
+Watching for file changes with StatReloader
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+- Broken pipe from ('127.0.0.1', 53275)
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 1339
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 797
+"POST /api/users/login/ HTTP/1.1" 200 930
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 743
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 940
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 797
+"GET /api/stocks/ HTTP/1.1" 200 6250
+"GET /api/stocks/companies/ HTTP/1.1" 200 19056
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 10630
+Method Not Allowed: /api/stocks/companies/1/
+"POST /api/stocks/companies/1/ HTTP/1.1" 405 41
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+Unauthorized: /api/stocks/disclosures/
+"POST /api/stocks/disclosures/ HTTP/1.1" 401 183
+Bad Request: /api/stocks/disclosures/
+"POST /api/stocks/disclosures/ HTTP/1.1" 400 36
+"POST /api/stocks/disclosures/ HTTP/1.1" 201 291
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"OPTIONS /api/stocks/stocks/ HTTP/1.1" 200 0
+"POST /api/stocks/stocks/ HTTP/1.1" 201 180
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 10630
+"GET /api/stocks/ HTTP/1.1" 200 6250
+"GET /api/stocks/stocks/ HTTP/1.1" 200 14584
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+Bad Request: /api/stocks/disclosures/
+"POST /api/stocks/disclosures/ HTTP/1.1" 400 36
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"GET /api/stocks/stocks/ HTTP/1.1" 200 2
+"POST /api/stocks/stocks/ HTTP/1.1" 201 180
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Unauthorized: /api/stocks/disclosures/
+"GET /api/stocks/disclosures/ HTTP/1.1" 401 58
+Bad Request: /api/stocks/disclosures/
+"POST /api/stocks/disclosures/ HTTP/1.1" 400 60
+Bad Request: /api/stocks/disclosures/
+"POST /api/stocks/disclosures/ HTTP/1.1" 400 64
+Bad Request: /api/stocks/disclosures/
+"POST /api/stocks/disclosures/ HTTP/1.1" 400 58
+"POST /api/stocks/disclosures/ HTTP/1.1" 201 305
+Unauthorized: /api/stocks/disclosures/
+"GET /api/stocks/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/disclosures/
+"GET /api/stocks/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/disclosures/
+"GET /api/stocks/disclosures/ HTTP/1.1" 401 58
+"GET /api/stocks/disclosures/ HTTP/1.1" 200 246
+Unauthorized: /api/stocks/disclosures/
+"GET /api/stocks/disclosures/ HTTP/1.1" 401 58
+"GET /api/stocks/disclosures/ HTTP/1.1" 200 246
+"GET /api/stocks/ HTTP/1.1" 200 6250
+Unauthorized: /api/stocks/disclosures/
+"GET /api/stocks/disclosures/ HTTP/1.1" 401 5256
+Not Found: /api/stocks/disclosures/1/
+"GET /api/stocks/disclosures/1/ HTTP/1.1" 404 51
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"OPTIONS /api/stocks/disclosures/ HTTP/1.1" 200 0
+Unauthorized: /api/stocks/disclosures/
+"GET /api/stocks/disclosures/ HTTP/1.1" 401 58
+Watching for file changes with StatReloader
+"OPTIONS /api/stocks/company/1/disclosures/ HTTP/1.1" 200 0
+Not Found: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 404 13664
+Not Found: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 404 13664
+"GET /api/stocks/ HTTP/1.1" 200 6250
+Unauthorized: /api/stocks/disclosures/
+"GET /api/stocks/disclosures/ HTTP/1.1" 401 5256
+Not Found: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 404 13664
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\views.py changed, reloading.
+Watching for file changes with StatReloader
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Watching for file changes with StatReloader
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 225
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+Unauthorized: /api/stocks/company/1/disclosures/
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 401 58
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 225
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 225
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 225
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 225
+Bad Request: /api/stocks/disclosures/
+"POST /api/stocks/disclosures/ HTTP/1.1" 400 86
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 225
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 225
+"POST /api/stocks/disclosures/ HTTP/1.1" 201 285
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 940
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 2
+"OPTIONS /api/stocks/stocks/ HTTP/1.1" 200 0
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"OPTIONS /api/stocks/user/131/trades/ HTTP/1.1" 200 0
+"OPTIONS /api/stocks/user/131/portfolio/64/ HTTP/1.1" 200 0
+Not Found: /api/stocks/user/131/portfolio/64/
+"GET /api/stocks/user/131/portfolio/64/ HTTP/1.1" 404 13653
+"GET /api/stocks/user/131/trades/ HTTP/1.1" 200 2
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"OPTIONS /api/stocks/stocks/ HTTP/1.1" 200 0
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"OPTIONS /api/stocks/user/orders/ HTTP/1.1" 200 0
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 2
+"OPTIONS /api/stocks/stocks/ HTTP/1.1" 200 0
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/companies/1/ HTTP/1.1" 200 110
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"OPTIONS /api/stocks/stocks/ HTTP/1.1" 200 0
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"OPTIONS /api/stocks/company/1/disclosures/ HTTP/1.1" 200 0
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 2
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 2
+Unauthorized: /api/stocks/user/orders/
+"GET /api/stocks/user/orders/ HTTP/1.1" 401 183
+"POST /api/users/login/ HTTP/1.1" 200 940
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"POST /api/users/login/ HTTP/1.1" 200 797
+"POST /api/users/login/ HTTP/1.1" 200 933
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"POST /api/users/login/ HTTP/1.1" 200 940
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"OPTIONS /api/users/login/ HTTP/1.1" 200 0
+"POST /api/users/login/ HTTP/1.1" 200 930
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"OPTIONS /api/stocks/company/1/disclosures/ HTTP/1.1" 200 0
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Final Project Related Document\Project Source Code\ethiopian_stock_market\ethio_stock_simulation\stocks\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /api/stocks/user/orders/ HTTP/1.1" 200 2
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/company/1/disclosures/ HTTP/1.1" 200 429
+"GET /api/stocks/stocks/ HTTP/1.1" 200 182

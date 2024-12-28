@@ -67,7 +67,8 @@ class DisclosureSerializer(serializers.ModelSerializer):
         model = Disclosure
         fields = ['id', 'company', 'type', 'year', 'file', 'description', 'uploaded_at']
         read_only_fields = ['uploaded_at']
-    
+
+   
 class SuspiciousActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = SuspiciousActivity

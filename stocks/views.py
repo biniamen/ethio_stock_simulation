@@ -153,19 +153,42 @@ class DisclosureViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        # Example role check — adjust to match your logic (e.g. request.user.role == 'company_admin')
-        # If no role check is needed, remove these lines.
+        # Check user role
         if hasattr(request.user, 'role') and request.user.role != 'company_admin':
             return Response({"detail": "Only company admins can upload disclosures."},
                             status=status.HTTP_403_FORBIDDEN)
 
+        # Validate for duplicate disclosure
+        company = request.data.get('company')
+        year = request.data.get('year')
+        disclosure_type = request.data.get('type')
+
+        if Disclosure.objects.filter(company=company, year=year, type=disclosure_type).exists():
+            return Response(
+                {"detail": "A disclosure with the same type and year already exists for this company."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Save the disclosure
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        disclosure = serializer.save()  # Creates the new Disclosure
+        disclosure = serializer.save()
         return Response({
             "message": "Disclosure uploaded successfully.",
             "disclosure": self.get_serializer(disclosure).data
         }, status=status.HTTP_201_CREATED)
+
+class CompanyDisclosuresView(APIView):
+    """
+    Fetch disclosures for a specific company.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, company_id, *args, **kwargs):
+        # Query disclosures for the specific company
+        disclosures = Disclosure.objects.filter(company_id=company_id)
+        serializer = DisclosureSerializer(disclosures, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)    
         
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])  # or staff-only permission

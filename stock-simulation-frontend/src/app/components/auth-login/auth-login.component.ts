@@ -43,6 +43,8 @@ export class AuthLoginComponent implements OnInit {
         localStorage.setItem('role', response.role);
         localStorage.setItem('company_id', response.company_id);
         localStorage.setItem('user_id', response.id);
+        localStorage.setItem('account_balance', response.account_balance);
+        localStorage.setItem('profit_balance', response.profit_balance);
 
         this.toastr.success('Login successful!', 'Success');
 

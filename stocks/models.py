@@ -73,7 +73,7 @@ class Stocks(models.Model):
 
     @classmethod
     def execute_direct_purchase(cls, user_id, stock_id, quantity):
-        # Fetch User and Stock
+    # Fetch User and Stock
         try:
             user = User.objects.get(id=user_id)
         except User.DoesNotExist:
@@ -88,7 +88,9 @@ class Stocks(models.Model):
             raise ValidationError("Quantity must be greater than zero.")
 
         if quantity > stock.max_trader_buy_limit:
-            raise ValidationError(f"Cannot buy more than {stock.max_trader_buy_limit} shares directly.")
+            raise ValidationError(
+                f"Cannot buy more than {stock.max_trader_buy_limit} shares directly."
+            )
 
         if stock.available_shares < quantity:
             raise ValidationError("Insufficient shares available from the company.")
@@ -120,12 +122,17 @@ class Stocks(models.Model):
             price=stock.current_price
         )
 
+        # --- Detect Suspicious Activity here ---
+        detect_suspicious_trade(trade)
+
         # Update user portfolio
         portfolio, _ = UsersPortfolio.objects.get_or_create(user=user)
         portfolio.quantity += quantity
         portfolio.total_investment += total_cost
         if portfolio.quantity > 0:
-            portfolio.average_purchase_price = portfolio.total_investment / portfolio.quantity
+            portfolio.average_purchase_price = (
+                portfolio.total_investment / portfolio.quantity
+            )
         portfolio.save()
 
         # Update stock

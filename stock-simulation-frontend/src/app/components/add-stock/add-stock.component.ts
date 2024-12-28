@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-stock',
@@ -13,71 +14,167 @@ export class AddStockComponent implements OnInit {
   companyId: string | null = '';
   tickerSymbol: string = '';
   formErrors: { [key: string]: string[] } = {};
+  companyDetailsLoaded: boolean = false;
+  stockExists: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
-    this.companyName = localStorage.getItem('company_name'); // Get the company name from local storage
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private toastr: ToastrService
+  ) {
     this.companyId = localStorage.getItem('company_id'); // Get the company ID from local storage
 
-    // Generate the ticker symbol from the company name
-    this.tickerSymbol = this.companyName ? this.generateTickerSymbol(this.companyName) : '';
-
     this.stockForm = this.fb.group({
-      ticker_symbol: [{ value: this.tickerSymbol, disabled: true }, Validators.required],
+      ticker_symbol: [{ value: '', disabled: true }, Validators.required],
       total_shares: [0, [Validators.required, Validators.min(1)]],
       current_price: [0, [Validators.required, Validators.min(0.01)]],
-      available_shares: [0, [Validators.required, Validators.min(1)]],
+      available_shares: [{ value: 0, disabled: true }, Validators.required],
       max_trader_buy_limit: [0, [Validators.required, Validators.min(1)]],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.companyId) {
+      this.fetchCompanyDetails();
+      this.checkIfStockExists();
+    } else {
+      this.toastr.error('Company ID not found in local storage.');
+    }
 
-  /**
-   * Generates a meaningful ticker symbol by taking the first letter of each word in the company name.
-   * If the result is longer than three characters, trims it to three.
-   */
+    this.setupMaxTraderBuyLimitValidation();
+  }
+
+  fetchCompanyDetails(): void {
+    this.http.get<any>(`http://127.0.0.1:8000/api/stocks/companies/${this.companyId}/`).subscribe(
+      (response) => {
+        this.companyName = response.company_name;
+        this.tickerSymbol = this.generateTickerSymbol(response.company_name);
+        this.stockForm.get('ticker_symbol')?.setValue(this.tickerSymbol);
+        this.companyDetailsLoaded = true;
+      },
+      (error) => {
+        console.error('Error fetching company details:', error);
+        this.toastr.error('Failed to fetch company details. Please try again.');
+      }
+    );
+  }
+
+  checkIfStockExists(): void {
+    this.http.get<any[]>(`http://127.0.0.1:8000/api/stocks/stocks/`).subscribe(
+      (stocks) => {
+        const stockForCompany = stocks.find(stock => stock.company === parseInt(this.companyId || '', 10));
+        if (stockForCompany) {
+          this.stockExists = true;
+          this.toastr.warning('A stock already exists for this company. You cannot add another one.');
+        }
+      },
+      (error) => {
+        console.error('Error checking existing stock:', error);
+        this.toastr.error('Failed to verify existing stock.');
+      }
+    );
+  }
+
   generateTickerSymbol(companyName: string): string {
-    const words = companyName.split(/\s+/); // Split the company name by spaces
-    let ticker = words.map(word => word[0].toUpperCase()).join(''); // Take the first letter of each word and join them
-    return ticker.slice(0, 3); // Limit to three characters if longer
+    const words = companyName.split(/\s+/);
+    let baseTicker = words.map(word => word[0].toUpperCase()).join('').slice(0, 3);
+
+    this.http.get<any[]>(`http://127.0.0.1:8000/api/stocks/stocks/`).subscribe(
+      (stocks) => {
+        let ticker = baseTicker;
+        let counter = 1;
+
+        while (stocks.some(stock => stock.ticker_symbol === ticker)) {
+          ticker = `${baseTicker}${counter}`;
+          counter++;
+        }
+
+        this.tickerSymbol = ticker;
+        this.stockForm.get('ticker_symbol')?.setValue(this.tickerSymbol);
+      },
+      (error) => {
+        console.error('Error checking ticker symbol uniqueness:', error);
+        this.toastr.error('Failed to verify ticker symbol uniqueness.');
+      }
+    );
+
+    return baseTicker;
   }
 
   onSubmit(): void {
     if (this.stockForm.valid) {
       const payload = {
-        company: this.companyId, // Use the company ID for submission
+        company: this.companyId,
         ticker_symbol: this.tickerSymbol,
         total_shares: this.stockForm.value.total_shares,
         current_price: this.stockForm.value.current_price,
-        available_shares: this.stockForm.value.available_shares,
+        available_shares: this.stockForm.value.total_shares,
         max_trader_buy_limit: this.stockForm.value.max_trader_buy_limit,
       };
 
-      this.http.post('http://localhost:8000/api/stocks/stocks/', payload).subscribe(
+      this.http.post('http://127.0.0.1:8000/api/stocks/stocks/', payload).subscribe(
         (response) => {
-          alert('Stock added successfully!');
-          this.stockForm.reset();
-          this.formErrors = {}; // Clear any existing errors
+          this.toastr.success('Stock added successfully!');
+          this.resetForm();
         },
         (error) => {
           if (error.status === 400 && error.error) {
-            this.formErrors = error.error; // Assign backend validation errors
+            this.formErrors = error.error;
+            this.toastr.error('Failed to add stock. Please check the form for errors.');
           } else {
-            alert('An unexpected error occurred. Please try again.');
+            this.toastr.error('An unexpected error occurred. Please try again.');
           }
         }
       );
     }
   }
 
-  /**
-   * Returns the error message for a specific form field.
-   * @param field The form field name
-   * @returns The error message string
-   */
+  resetForm(): void {
+    this.stockForm.reset();
+    this.formErrors = {};
+    this.stockForm.get('ticker_symbol')?.setValue(this.tickerSymbol);
+    this.stockForm.get('available_shares')?.setValue(0);
+  }
+
+  onTotalSharesChange(): void {
+    const totalShares = this.stockForm.get('total_shares')?.value || 0;
+    this.stockForm.get('available_shares')?.setValue(totalShares);
+  }
+
+  setupMaxTraderBuyLimitValidation(): void {
+    this.stockForm.get('total_shares')?.valueChanges.subscribe(totalShares => {
+      const maxLimitControl = this.stockForm.get('max_trader_buy_limit');
+
+      if (maxLimitControl) {
+        const maxLimit = Math.floor(totalShares * 0.25);
+        maxLimitControl.setValidators([
+          Validators.required,
+          Validators.min(1),
+          Validators.max(maxLimit),
+        ]);
+
+        maxLimitControl.updateValueAndValidity();
+      }
+
+      this.onTotalSharesChange();
+    });
+  }
+
   getErrorMessage(field: string): string | null {
+    if (field === 'max_trader_buy_limit') {
+      const maxLimit = Math.floor(this.stockForm.get('total_shares')?.value * 0.25 || 0);
+      if (this.stockForm.get(field)?.hasError('max')) {
+        return `Max Trader Buy Limit cannot exceed 25% of Total Shares (${maxLimit}).`;
+      }
+      if (this.stockForm.get(field)?.hasError('required')) {
+        return 'Max Trader Buy Limit is required.';
+      }
+      if (this.stockForm.get(field)?.hasError('min')) {
+        return 'Max Trader Buy Limit must be at least 1.';
+      }
+    }
     if (this.formErrors[field] && this.formErrors[field].length > 0) {
-      return this.formErrors[field][0]; // Return the first error message
+      return this.formErrors[field][0];
     }
     return null;
   }

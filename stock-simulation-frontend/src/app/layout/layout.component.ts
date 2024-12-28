@@ -11,6 +11,8 @@ export class LayoutComponent implements OnInit {
   username: string | null = null;
   kycStatus: boolean = false;
   companyName: string | null = null;
+  account_balance: string | null = null;
+  profit_balance: string | null = null;
   companySector: string | null = null;
 
   ngOnInit(): void {
@@ -20,6 +22,8 @@ export class LayoutComponent implements OnInit {
       // Fetch user details from local storage
       this.userRole = localStorage.getItem('role');
       this.username = localStorage.getItem('username');
+      this.account_balance = localStorage.getItem('account_balance');
+      this.profit_balance = localStorage.getItem('profit_balance');
       this.kycStatus = localStorage.getItem('kyc_status') === 'true';
 
       // Fetch company details if the user is a company_admin
