@@ -1,3 +1,5 @@
+# ethio_stock_simulation/utils.py
+
 import sendgrid
 from sendgrid.helpers.mail import Mail
 import random
@@ -5,7 +7,6 @@ from decouple import config
 
 from ethio_stock_simulation.settings import SENDGRID_API_KEY, SENDGRID_FROM_EMAIL
 
-# Load environment variables (if needed; you already do this in your code)
 SENDGRID_API_KEY = config('SENDGRID_API_KEY', default=SENDGRID_API_KEY)
 SENDGRID_FROM_EMAIL = config('SENDGRID_FROM_EMAIL', default=SENDGRID_FROM_EMAIL)
 
@@ -14,21 +15,22 @@ def generate_otp():
     return str(random.randint(100000, 999999))
 
 def send_verification_email(to_email, username, otp):
-    """
-    Send OTP to user's email via SendGrid.
-    """
+    """Send OTP to user's email via SendGrid."""
     sg = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
     subject = "Your Account Verification Code"
     content = f"""
-    Dear {username},
+Hello {username},
 
-    Your verification code is: {otp}
+Thank you for registering on Ethiopian Stock Market Simulation Platform.
 
-    This code will expire in 10 minutes.
+Your one-time verification code is: {otp}
 
-    Regards,
-    Your Company Name
-    """
+This code will expire in 10 minutes. If you did not request this, please contact support.
+
+Best regards,
+
+Ethiopian Stock Market Simulation Team
+"""
     message = Mail(
         from_email=SENDGRID_FROM_EMAIL,
         to_emails=to_email,
@@ -43,7 +45,7 @@ def send_verification_email(to_email, username, otp):
         print(f"Failed to send email: {e}")
         return False
 
-def send_order_notification(to_email, username, action, stock_symbol, quantity, price):
+def send_order_notification(to_email, username, action, stock_symbol, quantity, price, new_balance=None):
     """
     Send an order execution notification via SendGrid.
     to_email: recipient's email address
@@ -52,23 +54,30 @@ def send_order_notification(to_email, username, action, stock_symbol, quantity, 
     stock_symbol: e.g., 'AAPL'
     quantity: number of shares
     price: execution price
+    new_balance: optionally pass updated account balance for user
     """
     sg = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
     subject = "Order Execution Notification"
     content = f"""
-    Hello {username},
+Hello {username},
 
-    Your order has been executed successfully:
+We are pleased to inform you that your order has been executed successfully:
+
     Action: {action}
     Stock: {stock_symbol}
     Quantity: {quantity}
-    Execution Price: {price}
+    Execution Price: {float(price):,.2f}
 
-    Thank you for trading with us.
+"""
+    if new_balance is not None:
+        content += f"Your updated account balance is now: {float(new_balance):,.2f}\n\n"
 
-    Regards,
-    Your Stock Simulation Platform
-    """
+    content += """Thank you for trading with Ethiopian Stock Market Simulation Platform.
+
+Best regards,
+Ethiopian Stock Market Simulation Team
+"""
+
     message = Mail(
         from_email=SENDGRID_FROM_EMAIL,
         to_emails=to_email,
